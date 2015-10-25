@@ -1,0 +1,972 @@
+LOGISTICS:
+
+EDU password: schoolhouserock
+2.4: ourmembersrock!
+
+STUDY:
+
+pandas query
+list comps for dataframes
+enumeration
+library itertools
+iteration
+key value pairs for dicionaries
+
+lambda with map and reduce
+
+constructor -> creates object --> __init__ magic method
+method -> function which akkcts on an object
+
+CONCEPTS:
+
+argmax
+
+argument with the max value
+
+
+MAGIC METHODS:
+
+overload __name__
+
+less than, greater than, equal __cmp__ cmp() method
+allows for == < > >= <= overloading
+
+__repr__ for returning string for printing
+
+__init__ constructor
+
+IPYTHON:
+
+_ -> last resutl
+_i10 -> result of line number 10
+im <tab> last command that started with "im"
+
+LISTS:
+
+pop
+extend
+append
+
+if not list_name then it is empty
+
+ENUMERATION:
+
+range generate all values while xrange does one at a time to save memory
+
+
+for i, item in enumerate(L):
+    print i, item
+
+which is faster than a for loop
+
+enumerates zip with izip which combines lists item by item
+count is a sequence
+
+from itertools import izip, count
+
+for i, first, last in izip(count(), first_names, last_names):
+    print i, first, last
+
+LIST COMPREHENSION:
+
+doubled = [item * 2 for item in L]
+
+L = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+doubled = [[item * 2 for item in row] for row in L]
+
+Flatten 2-D list:
+
+L = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+[item for row in L for item in row]
+
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+POSTGRES:
+
+sudo su postgres
+
+user postgres
+
+psql dbname
+
+\d # tablenames
+
+\d tablename # column names
+
+\q # quit
+
+select userid, campaign_id, events.meal_id, type, 
+price, event from events inner join users USING(userid) 
+inner join meals ON meals.meal_id = events.meal
+where event = 'bought';
+
+select  count(events.meal_id), type
+
+from events inner join users USING(userid) inner join meals 
+ON meals.meal_id = events.meal_id where event = 'bought'
+GROUP BY type;
+
+CREATE ROLE username superuser;
+CREATE ROLE username postgresql;
+
+WITH user_campaign_counts AS (
+    SELECT events.userid, count(*) as bought, campaign_id
+    FROM events
+    JOIN users
+    ON users.userid = events.userid
+    AND events.event = 'bought'
+    GROUP BY events.userid, campaign_id ),
+
+max_campaign_bought AS (
+    SELECT campaign_id, max(bought) AS bought
+    FROM user_campaign_counts
+    GROUP BY campaign_id)
+
+SELECT u.userid, u.campaign_id
+FROM user_campaign_counts u
+JOIN max_campaign_bought m
+ON u.campaign_id = m.campaign_id AND
+   u.bought = m.bought
+
+Find all meals which are above average price
+of previous day.
+
+self join example:
+
+SELECT current.dt, current.meal_id
+FROM meals current
+JOIN meals previous
+ON previous.dt >= current.dt - 7 AND
+   previous.dt <  current.dt 
+GROUP BY current.dt, current.meal_id, current.price
+HAVING current.price > AVG(previous.price) 
+ORDER by current.dt;
+
+******************************************************
+For each user count # share events and # like events.
+******************************************************
+
+SELECT userid, 
+       SUM(CASE WHEN event = 'share' THEN 1 ELSE 0 END) as share, 
+       SUM(CASE WHEN event = 'like'  THEN 1 ELSE 0 END) as like 
+FROM events
+GROUP BY userid
+ORDER BY userid;
+
+SELECT userid, COUNT(*)
+FROM events
+WHERE event = 'share'
+GROUP BY userid;
+
+SELECT userid, COUNT(*)
+FROM events
+WHERE event = 'share'
+GROUP BY userid;
+
+SQL INTERFACE WITH PYTHON:
+
+1- Open a connection
+2- Initialize a cursor object
+3- Execute a query
+4- Commiting the results
+5- Close the connection
+
+import psycopg2
+from datetime import datetime
+conn = psycopg2.connect(dbname= 'socialmedia', host='/tmp')
+c = conn.cursor()
+
+c.execute(
+    '''
+    CREATE TABLE logins_7d_%ss AS 
+    SELECT userid, COUNT(*) AS cnt
+    FROM logins
+    '''
+    )
+
+
+c.close()
+conn.commit()
+conn.close()
+
+conn.rollback() 
+
+
+c.execute(
+    '''SELECT userid1
+       FROM friends;'''
+)
+
+Cursor object is a generator. Each row is loaded one at a time.
+
+l = list(c.fetchall())
+
+c.next()
+
+a = []
+
+for result in c:
+    a.append(result)
+
+c.fetchall() -- returns list of tuples
+
+PANDAS
+
+from math import sqrt
+import random
+
+import numpy as np
+import pandas as pd
+import scipy.stats as scs
+
+PLOTTING
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# ipython notebook
+
+%matplotlib inline
+
+pd.plot ANYTHING
+sns.whatever
+
+# ipython command line
+
+plt.show()
+
+# numpy data array load from csv
+
+google = np.loadtxt('data/lunch_hour.txt')
+
+# pandas data frame load from csv
+
+df = pd.read_csv('data/salary_data.csv')
+df.describe()
+
+Pandas in built on numpy which is fast
+
+ipython notebook
+
+index 3 ways:
+
+ix - more flexible index
+
+loc - non-numeric index
+iloc - integer index locations
+
+boolean indexing is masking
+
+(s > 0).head()
+s[s > 0].head()
+
+
+iloc[:,1:]
+
+rows, columns
+
+Quantitative var
+
+histogram (order is important and bin is chosen)
+kernel density estimates
+normal quantile plot - for normal distribution check
+Stem - leaf plot
+
+Qualitative var
+
+Bar chart (order is not important and bin is inherient)
+Pie chart
+Pareto chart is bar chart that is ordered by counts
+
+Bivariate:
+
+Qual & Qual - Scatter plot 
+Quant & Qual  -  Box and whisker within each category side by side
+
+Qual vs Qual: 
+
+mosaic plot
+multiple pie
+stacked bar
+
+###########################################
+
+PROBABILITY:
+
+Don't care on what you will believe if something
+will happen. "confidence"
+
+Probabity is on history
+
+Two ways to think of frequentist probability:
+
+1) (# of events that meet your criteria) / (total # of possible events)
+
+2) How often does this happen in the long run ?
+
+***********************
+
+BAYESIAN PROBABILITY:
+another way to look at probability is by Bayes Rule and 
+Bayesian Probability:
+
+Fundamental belief - not strictly data - that something is true not changed
+by history. "chance","likely hood" , "previous" or prior, 
+
+"Prior Belief" is essential to Bayes 
+
+prior - probability distribution of one's beliefs before collecting any data
+        equal weight to all called "uninformed prior"
+        Posterior becomes prior for next round 
+
+likelihood - Probability of data given some belief / outcome 
+
+Posterior - probability distribution of one's belief after collecting data
+            Multiply prior * likelihood of given data value
+
+Conjugate prior - if the posterior and prior are from the same family of 
+probability distribution, the are conjugate distributions, and the 
+prior is a conjugate prior to the likelihood
+
+Define two events A and B
+
+Bayes Rule:
+
+P(A | B ) = P(A) * (P( A | B)) / P(B)
+
+Mutually exclusive vs. Independent events
+(rain, no rain - cannot occur at the same time)
+
+Independent Events: P(A and B) = P(A)*P(B)
+
+Rewriting using Law of Total Probability:
+
+P(A- | B ) = P(B|A)* P(A) /( P(B|A) * P(A) + P(B| A') * P(A'))
+
+2)
+
+*******************************************
+
+one set of events is called marginal probabilies
+multiple sets of events is called joint probabilies
+
+*******************************************
+
+Random variable is a capital letter.
+specific value is a lower letter
+
+~ is notation for distributed as:
+
+X ~ Normal(mean, variance ** 2)
+
+*******************************************
+
+Four parts important for distributions:
+
+1) Measure of center (median, mean, mode)
+2) Measure of spread (5# summary (min, max, q1, q2, q3) , variance, range, std. dev)
+3) Shape (skewed, symmetric)
+4) Outliers
+
+*******************************************
+
+CDF -> Cummulative Distribution Function
+PMF -> Discrete or qualitative probability mass function
+PDF -> Continuous of quantitative probability density function (CDF derivitive)
+
+*******************************************
+
+Expectation or Expected value is the weighted average
+
+Sum up each value * probability of each value
+
+*******************************************
+
+Variance - measure of the variablity around x
+
+Var(x) = Expected_value(x ** 2) - (Expected_value(x)) ** 2
+       = Expected_value(( x - Expected_value(x)) **2 )
+
+Expected_value(x**2) = sum_of ( x**2 * p(x) )
+
+Standard Deviation is the square root of variance in order to compare units
+
+Discrete random variables
+
+*******************************************
+HOW TO MODEL
+*******************************************
+
+1. Identify your random variable (R.V. X or Y e.g. height)
+   (quantitative, qualitative, start min, end max values, continuous, discrete)
+2. Identify the distribution
+3. Identify the parameters
+4. Answer the question of interest
+
+*******************************************
+DISTRIBUTIONS
+*******************************************
+
+Bernoulli ( p ):  one if a coin with heads probability
+        p comes up heads, zero otherwise. (one coin flip)
+
+Binomial ( n, m, p) : the number of heads in n independent flips of a coin with heads probability p .
+Only takes on two events. Sum of Bernoulli. (multiple coin flips)
+
+(n x) = n! / (x! ( n-x) !)
+
+Expected value = n * P
+
+Geometric (p) (where p > 0): the number of flips of a coin with heads probability 
+                             p until the first heads
+            binomial distribution with number of success until failure
+            e.g. 95% free throw shooting percentage
+
+X = makes of shots - binomial
+X = makes of shots until first miss- geometric
+X = make 8 shots - with a 95% rate - binomial
+scs.binom.pmf(8, 10, .95)
+
+Negative Binomial - geometric combined until n misses e.g. trial until n (e.g.) 3 misses
+
+Poisson (lambda) (where lambda > 0): a probability distribution over the nonnegative integers used for modeling the frequency of rare events
+Number of events that can happen in an interval.
+Positive discrete. Right skew. Non-symetric. 
+
+lambda = mean = variance
+
+Continuous random variables:
+
+Uniform (a,b) (where a < b):  equal probability density to every value between a and b on the real line.
+
+******************
+
+Beta ( alpha, beta ) continuous between 0 and 1 - generally for proportions
+
+Beta(alpha, beta)  = c ** ( alpha - 1) * ( 1 - c ) ** (beta - 1) / ( beta(alpha, beta) )
+
+c = click through rate / conversion rate
+
+Beta ( 1, 1) is not any information
+Beta ( 500, 500) this gives enough samples for konwing what is going on
+
+Gamma( alpha, beta ) 
+expected value = alpha * beta
+variance = alpha * beta ** 2
+Right skewed continuous distributions .  Range 0 to positive infinity.
+
+special cases of Gamma:
+
+******************
+
+Chi Squared ( degrees of freedom )  : independece test of two 
+categorical variables  beta = 2 alpha = df/2
+or ... Gamma( df /2 , 2 )
+also used for comparing proportions
+
+df = (nrows - 1) * (ncols - 1)
+
+Used to compare two categorical groups for independence
+
+Test your variance equal to some value
+
+p value is always shaded to the right
+
+H0 Independent
+H1 Not Independent of two categories
+
+******************
+
+standard normal 0, 1
+
+Exponential (lambda) : decaying probability density over the nonnegative reals
+
+******************
+
+F-distribution (dfn, dfd)
+t-distribuion (df)
+
+******************
+
+Normal (mean, standard deviation ** 2) :  also known as the Gaussian distribution 
+variance = standard deviation **2
+Model over entire real line
+min = negative infinity
+max = positive infinity
+expected value is the mean
+--> good for averages and porptions
+
+Gaussian random variables are extremely useful in machine learning and statis-
+tics for two main reasons.  First, they are extremely common when modeling 
+“noise” in statistical algorithms. Quite often, noise can be considered 
+to be the accumulation of a large number of small independent random 
+perturbations affecting the measurement process; by the Central Limit 
+Theorem, summations of independent random variables will tend to 
+“look Gaussian.” Second, Gaussian random variables are convenient for 
+many analytical manipulations, because many of the integrals involving 
+Gaussian distributions that arise in practice have simple closed form 
+solutions.  We will encounter this later in the course
+
+For any continuous distribution no probability for a single point.
+
+******************
+SCIPY
+******************
+
+import scipy.stats as scs 
+
+# for binomial distribution
+
+scs.binom.pmf(x, n, p)
+
+# X = make 8 shots out of 10 - with a 95% rate - binomial
+
+scs.binom.pmf(8, 10, .95)
+
+# X = make at least 8 shots out of 10 - with a 95% rate - binomial
+# take results minus 1 to get the part of the chart
+
+1 - scs.binom.cdf(7, 10, .95)
+
+******************
+
+4 things to get back:
+
+scs.nameofdistribution. and then...
+
+1 - pmf - P(X = x) discrete qualitative
+          probability mass function value at instance 
+* - pdf - P(X = x) continuous - for plotting not solutions - so not counted for use
+          probability density function (quantitative continuous) should be 0
+2 - cdf - P(X <= x) may need to subtract from 1
+          Cummulative Distribution Function under a range P(X <= x)
+3 - ppf - returns x given probability (quantile) "backward calculation"
+          P( X <= x) for discrete and continuous e.g. how many shots in 85% of the time?
+4 - rvs - size for random draws for the distribution
+
+******************
+
+Estimation Techniques for Distribution Parameters
+
+******************
+
+1 - Maximum Likelihood Estimations (MLES)
+2 - Method of Moments (MOMs)
+~ 3 - Maximum a Posterior (MAPs)
+
+MLES is Calculus Based:
+
+Asymptopic statistical properties are with large sample sizes
+
+Calculate:
+
+1) compute joint distribution (likelihood)
+2) log the joint distribution
+3) take the derivative with respect to your parameters
+4) set to 0
+5) solve for parameters
+
+Example Poisson distribution:
+
+1) f(x|lambda) = lambda ** x e ** -x / x!
+
+2) likelihood ( lambda | x_sub_i ) which is proportional to the log 
+sum ( x_sub_i * log(lambda) - lambda * n )
+
+5) lambda = mean
+
+******************
+
+Easiest is MOMs which is Algebra Based:
+
+1) take expected value and equate it to a moment
+
+First and second moments for all distributions:
+
+E[X] = 1/n sum x_sub_i = M1
+E[X**2] = 1/n sum x_sub_i ** 2 = M2
+
+variants for all distributions:
+
+VAR[X] = E[X**2] - (E[x]) ** 2
+
+e.g. for a normal distribution:
+
+VAR[X] =  sigma ** 2
+
+e.g. for a beta distribution:
+
+X ~ Beta ( alpha , beta)
+
+Expected value:
+
+E[X] = alpha / (alpha + beta)
+
+VAR[X] = alpha * beta / ( alpha + beta ) **2 (alpha + beta + 1 ) )
+
+Calculate M1 and M2 from values using moment calculations:
+
+M1 = alpha / (alpha + beta)
+M2 - M1 ** 2 = alpha * beta / ( alpha + beta ) **2 (alpha + beta + 1 ) )
+
+******************
+
+Populations/Parameter/Sample/Statistic
+
+******************
+
+Statistic is numeric from sample (lowercase symbol)
+Parameter is numeric from population (Greek symbol)
+
+******************
+
+Central Limit Theorem
+
+******************
+
+the statistics distribution are normally distrution will
+be normal with a large enough sample size. 30 is a good 
+guess
+
+******************
+
+Sampling Distributions
+
+******************
+
+Distribution of a statistic. 
+X ~ N(mean, (variation/sqrt(n))**2)
+
+Example:
+
+Consider I am interested in every
+person at Galvanize's average
+commute.
+
+I select 50 people at
+random from the 
+building.
+
+I find an average commute of 35 min
+with a standard deviation of 20 minutes.
+
+DO FIRST:
+
+Population: Everyone at Galvanize
+Parameter: The average time to commute (mue)
+Sample: 50 people selected 
+Statistic: x = 35 min s = 20 min
+
+x is a normal distributed from the central
+limit theorem
+
+How to determine the average travel time for 
+everyone? 35 +- 2 deviations
+
+******************
+
+CONFIDENCE INTERVALS
+
+******************
+
+Only good for sample statistics
+
+t* - is a t* distribution for a sample
+by degrees of freedom
+
+x +- t* sub (n - 1) * (s / sqrt(n))
+
+Not really used but only if you large sample
+size
+
+Z* - is a Z* population distribution
+
+x +- Z* (s / sqrt(n))
+
+95% confidence of data in the middle of the curve.
+
+35 +- scs.t.ppf(.975, 49) * 20 / sqrt( 50 )
+
+scs.t.pdf(.975, 49)
+
+1 - 0.975  = 0.025 
+
++- ----> give 5%
+
+area on the left 
+50 sample size - 1
+
+We are 95% confident the average commute for all 
+Galvenize travelers is between ( and ).
+
+*use confident instead of chance
+
+******************
+
+Bootstrapping
+
+******************
+
+Repeated samples from samples space.
+
+Treat sample as a population.
+
+###########################################
+
+Hypothesis Testing
+
+all assume normal distribution
+
+###########################################
+
+Null hypothesis H0 is what you assume to be true before collect any data.
+
+1. H0 alternative hypothesis H1
+2. Figure out what test. Calculate some test statistic.
+common z (proportions), t (means), chi squared, F tests, 
+Welches) from a distribution
+3. Obtain p-value
+4. p-value <= alpha then reject null hypothesis
+(determines whether or not alternative H1 is accepted)
+5. Conclusion in terms of your problem.
+
+p-value is greater than alpha when you reject the null hypothesis
+
+Power = 1 - beta = of the test is the probability to choose H1 correctly
+
+Parachute Example:
+
+type 1 error: Worst type of error - alpha  - think the parachute 
+will open but it does not. Chose H1 when H0 is really true
+
+scs.norm.ppf(0.95, 0, 1) z score
+
+type 2 error: beta - think the parachute will not open but it does
+Chose H0 when H1 is really true
+
+cdf to get area under curve
+
+how to calculate the value of beta...
+
+effect size is the difference between two means
+
+Hypothesis Testing Example
+
+Consider I believe the average commute time to
+galavanize is 30 minutes or less for all 
+individuals
+
+Null hypothesis H0 is what you assume to be true before collect any data.
+Alternative hypothesis H1 is what you want to test that you think is true. 
+
+n = 50
+mean = 35
+std = 20
+
+H0: m >= 30
+H1: m < 30
+
+use t statistic for a single test
+
+t = (est - value H0/ SE est)
+
+df = n-1
+
+H0 t = (35 - 30)/ 20/sqrt(50) = 1.77
+
+scs.t.ppf(0.975, 49) 
+
+3 - 1.77 value p value shaded to the left of 1.77 because of less than
+
+if scs.t.cdf(1.77, 49)  > .05 then failed to reject null hypothesis
+
+conversely if null hypothesis is < 30 then :
+
+if 1 - scs.t.cdf(1.77, 49)  < .05 then reject the null hypothesis
+
+******************
+
+for two means use paired t test 
+
+df = n-2 for 2 means
+
+for two means use unpaired t test 
+e.g. Welches test
+
+(x1 - x2)  - (mean1 - mean2) / (SE (x - x2)
+
+df = n-2 for 2 means
+
+for test proportion normal z or 0 - 1
+
+for compare two proportions normal z or 0 - 1
+
+one sample proportion 
+
+df = n-2 for 2 means
+
+proportion has z test
+means has t test
+
+******************
+
+Publishing bias 
+
+multiple comparison techniques
+
+5 publish can have type 1 errors
+while 95 cannot publish that do not have type 1 errors
+
+Bonferroni Correction: new alpha = old_alph / number_tests
+
+******************
+
+p-value
+
+The probability of getting your data or more extreme data
+if the null is true
+
+P(x | H0 is true) 
+
+******************
+
+When you have really large sample sizes everything is statistically
+significant
+
+Need to use something other than a p value.
+
+Confidence interval can also be used as a hypothesis test.
+
+Know what the result of your test is "saying"
+
+e.g.
+
+H0: m1 = m2    
+H0: m1 - m2 = 0
+
+H1: m1 != m2
+
+Shade the alternative hypothesis
+
+******************
+
+Experiments vs observational studies
+
+Experiments assign individuals to a treatment
+
+******************
+
+Bayes Rules
+
+******************
+
+https://en.wikipedia.org/wiki/Conjugate_prior
+
+Conjugate priors are nice! Beginning belief of the distribution.
+Posterior has the same distribution
+
+
+1. Simple Example
+
+Data follows a Poisson distribution
+
+Conjugate prior is a gamma distribution because is goes from 0 to infinity
+with the same range as the distribution of the MEAN. Feeding in 
+distribution of the parameter of the likelihood of the data.
+
+Gamma will be the posterior with the gamma conjugate prior to generate 
+the mean for the distribution
+
+Keep updating conjugate prior with new posterior hyperparameters 
+using the gamma distribution 
+
+X ~ Poisson(lambda)
+
+Likihood(x|lambda) ~ Poisson(lambda) <- Data generator
+Conjugate Prior - Pi(lambda) ~ Gamma( alpha_0, beta_0) <- Hyper Parameters
+
+lambda is a draw from the conjugate prior
+
+Postierer parameters -> Pi(lambda | x) proportional_to  
+Gamma(sum(x_i) + alpha_0, ( n + (1/beta_0) ) -1 )
+
+
+2. Advanced Example
+
+******************
+
+Bayes using Beta Click through
+
+******************
+
+Objectives:
+
+1- Describe what each of the three parts of the Bayesian learning framework represent
+2- Define what a conjugate prior is and why it is useful
+3- Describe why the beta-binaormial conjugate pair / likelihood is useful in online learning
+4- Define A/B testing
+ 
+Prior: Beta( alpha, beta) for c - click through rate/conversion rate
+
+Likelihood: Binomial( n, c ) = ( n k ) * c **k (1 - c) ** (n - k)  n is number of trials - k is number of successes
+
+e.g. n is number of trials and k is number of click successes e.g. conversions
+
+Postier: New parameters: alpha = alpha + k 
+                         beta = beta - k + n
+
+Beta(alpha, beta)  = c ** ( alpha - 1) * ( 1 - c ) ** (beta - 1) / ( beta(alpha, beta) )
+Likelihood: Binomial( n, c ) = ( n k ) * c **k (1 - c) ** (n - k)  n is number of trials - k is number of successes
+
+likelihood*prior -> proportional to 
+
+Start with alpha = beta = 1 for uniform prior
+
+first visit is 1 success
+
+alpha = 1 + 1 = 2
+beta  = 1 + 1 -1 = 1
+
+next visit is 0 success
+
+alpha = 2 + 0 = 2
+beta  = 1 + 1 - 0 = 2
+
+alpha = 3
+beta = 2
+
+a = 3 b = 3 or 50% success
+
+Bayes using Beta Click through
+
+******************
+
+Multi armed bandit
+
+******************
+
+maximize returns on a slot machine
+
+try and explore multiple slot machines
+
+
+trade off between exploration and explotation
+
+
+regret is a meaure of how often you choose a sub-optimal bandit
+epsilon first is some exploration and more exploitation
+
+bernoulli trial is yes/no on return beta distributions
+baysian update process
+
+start with prior of uniform distribution
+
+Baysian does not have confidence and hyposisis testing 
+Frequentist has 95% confidence interval and hyposisis testing 
+
+Frequentists is looking for data that follow a "true" parameters
+Prob(Data given parameters)
+Baysian is looking "true" parameters givne data
+Prob( parameters given data)
