@@ -1074,3 +1074,60 @@ inverse of a (4X4) is (4X4)
 Beta = (X tranpose dot X ) -1 dot X transpose y
 
 Dot product of 2 products is a scalor
+
+REGRESSION
+
+y = beta0 + beta1(treatment) + E + beta2(age)
+
+look at difference of means between beta0 and beta1 for the treatment
+using t test
+
+beta0 is the y interecept 
+beta1 is the y interecept 
+
+same data with notation for whether or not treatment is done
+
+BP TR AGE
+
+100 0 25
+110 1 30
+120 0 40
+
+for regression the distribution of y is contingent on x
+
+
+Instead of looking at:
+
+y ~ N( mean, deviation)
+
+Linear regression tests for:
+
+y ~ N( x * beta, omega * T)
+
+beta is the slope of the regression line
+
+Regression is used for:
+
+1. Inference
+
+look at coefficents and distributions and check the p value for the mean
+for significance
+
+2. Predictions y hat values
+
+RSS is the residual of the sum of squared errors
+
+MSE = 1/N * RSS which is the
+
+root mean square error
+
+FMSE = sqrt(MSE) which puts us back on scale
+
+RSE = sqrt(1/ (N-p-1) ) * RSS 
+
+residual standard error which accounts for the degrees of freedom
+
+R**2 is a good way to compare different models with different
+measurements
+
+
