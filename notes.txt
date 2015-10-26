@@ -1123,11 +1123,21 @@ root mean square error
 
 FMSE = sqrt(MSE) which puts us back on scale
 
-RSE = sqrt(1/ (N-p-1) ) * RSS 
+RSE = sqrt( 1 / (n-p-1) * RSS )
 
 residual standard error which accounts for the degrees of freedom
 
 R**2 is a good way to compare different models with different
 measurements
+
+R**2 = (TSS - RSS)/ TSS = 1 - RSS/TSS
+
+TSS = summation ( y_i - y_bar) ** 2
+RSS = summation ( y_i - y_hat) ** 2
+
+y_bar = mean(y)
+y_hat = corresponding y value on estimated line
+
+***************************
 
 
