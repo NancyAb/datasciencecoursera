@@ -1059,4 +1059,18 @@ A (T) 5X4 shape 4X5
 
 A 10 X 3 dot B 3 X 5 shape 10 X 5
 
+A 3 X 10 dot B 5 X 3 CANNOT BE DONE
 
+(A 5x4 dot B 4X3 ) -1 CANNOT BE DONE
+
+Given A 5X4 , ( A T A ) -1 
+
+A T is 4X5
+
+(4X5 dot 5X4) -1 = > (4 X 4) square so can take inverse
+
+inverse of a (4X4) is (4X4)
+
+Beta = (X tranpose dot X ) -1 dot X transpose y
+
+Dot product of 2 products is a scalor
