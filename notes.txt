@@ -970,3 +970,26 @@ Frequentists is looking for data that follow a "true" parameters
 Prob(Data given parameters)
 Baysian is looking "true" parameters givne data
 Prob( parameters given data)
+
+****************
+
+Linear Algebra
+
+****************
+
+dot product of two vectors is a scalor or the covariance
+
+euclidean(a ,b)
+
+is the distance between two points or vectors
+
+vector norm is a number
+
+cosine_similarity can be used instead of
+euclidean(a ,b)
+
+np.corrcoef(a,b)[0,1]
+
+vector_norm(a) - length of the vector from the origin
+
+
