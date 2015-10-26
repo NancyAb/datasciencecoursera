@@ -992,4 +992,71 @@ np.corrcoef(a,b)[0,1]
 
 vector_norm(a) - length of the vector from the origin
 
+also called lasso penalty
+
+np.sum([np.absolute(x) for x in a])
+np.sum([ x** 2 for x in a])
+
+v = np.random.randint(10, size=4)
+v
+w = np.random.randint(10, size=4)
+w
+
+A = np.random.randint(10, size = 8).reshape(2,4)
+A.transpose()
+
+Matrix multiplication
+
+Dot product. 
+
+mat1 = np.random.randn(12).reshape(4, 3)
+mat2 = np.random.randn(15).reshape(3, 5)
+
+a = np.arrange(1,7).reshape(3,2)
+b = a.T
+
+in general:
+
+A r1 xc1 B r2 xc2
+
+c1 = r2
+
+A dot B = r x c2
+
+A = [[ 1, 2 ],
+     [3 , 4], 
+     [5 , 6]] 
+
+A.T = [[ 1, 3, 5 ],
+       [ 2, 4, 6 ]]
+
+A dot A.t = [[5, 11, 17],
+       [ 11, 25, 39 ] ,
+       [ 17, 39, 61 ]]
+
+
+
+1*2  + 
+
+1*5 + 6* 2 = 17
+
+Inverse of a matrix needs to be a square matrix.
+
+such that the dot product of A and A -1 is equal to the identity matrix
+
+A prime = A transpose
+
+Zero vector = a vector of zeros
+
+Norm is 0 of a zero vector
+
+The vector {3, 4} norm is 5. sqrt( 3**2 + 4**2 ) = 5
+
+The vector {1, 1, 1, 1} = sqrt ( 1 + 1 + 1 + 1 ) = 2
+
+Shape of A 1xn DOT B 1xn  shape 1 x n
+A (T) 5X4 shape 4X5
+
+A 10 X 3 dot B 3 X 5 shape 10 X 5
+
 
