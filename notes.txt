@@ -1140,4 +1140,94 @@ y_hat = corresponding y value on estimated line
 
 ***************************
 
+REGRESSION
+
+***************************
+
+Robust Residual 
+
+RSS = sum(abs(y - y_hat))
+
+iid = Independent and identically distributed 
+
+errors are iid normally distributed
+
+Studentized residuals
+
+E_i iid N(0, sigma**2)
+
+Need to test normality of this error
+
+Can check:
+
+- Normal Q-Q plot, histogram
+
+Plot studentized residuals to see if they are normal against theoretical quantiles
+
+Should fall on a line
+
+line up sample data with values in a normal curve
+
+Studentized Residuals should be N(0,1)
+
+
+Local regression - use sliding weight function, make separate linear fits over range X
+
+Generalized additive model - just add up contributing effects
+
+
+Need to check for normal error_i  is a normal distribution
+it is proportional to studentized residials ~ N(0,1)
+
+Need to check that the error rate is sigma**2
+
+Solution is to look at y - because it is used to calculate error
+adding more components will not help.
+
+multicollinearity - 
+
+- Correlation Matrix / Scatterprlot Matrix
+
+- Variance Inflation Factors (VIF)
+
+-- Run ordinary least squares for each predictor as function of 
+all the other predictors . k times for f predictors
+
+Rule of Thumb, > 10 is problematic
+
+OUTLIERS:
+
+occur when y_i is far from predicted y_i_hat (estimated)
+
+find out why it is an outlier before removing
+
+Correlation is a linear relationship between factors
+
+Dividing each residual by its standard error,
+should result in a "studentized residual" between -2 and 2
+for 2 standard deviations
+as a rule of thumb
+
+LEVERAGE
+
+Leverage point : 
+
+Var(e_i) = (1 - h_ii) * sigma ** 2
+
+Beta = (X.T * X) ** -1 X.t * y
+
+XBeta = y_hat = H * y
+
+H = X ( X.T * X) ** -1 X.T
+
+h_ii = (H)_ii
+
+some points affect the regression more than other points
+
+Most influential points are outliers with high leverage (far from 
+cluster of points
+
+
+
+
 
