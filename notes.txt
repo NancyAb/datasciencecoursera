@@ -1228,6 +1228,198 @@ Most influential points are outliers with high leverage (far from
 cluster of points
 
 
+Look for interaction between variables by seeing systematic
+under or over predicion of values using heat map
 
 
+p value should be LESS than 0.05 for regression results
 
+**************
+
+REGRESSION
+
+**************
+
+Variance - in terms of fitting a model - fluctuations 
+in model due to change in our training data
+
+Bias - error introduced by modeling complex data with
+simplistic model - how far off the expected value is from
+the true model
+
+Strike a balance between variance and bias
+
+- 100 x variables need to decide on which 20 variables to
+use look at p values to see what to remove
+after fitting all variables
+
+- look for redundant variables or classified together and 
+choose one
+
+- business choice for predictive variables
+
+Coefficent size is in proportion of the x variable so not 
+relative to each other
+
+**************
+
+BEST SUBSET
+
+**************
+
+Fit all possible models - computation intensive so not
+practical
+
+**************
+
+FORWARD SELECTION
+
+**************
+
+Fit it with each variable alone
+Pick winner with highest RSS
+
+Pick winner with combo of the rest of the variables
+
+**************
+
+BACKWARD SELECTION
+
+**************
+
+Fit with all variables
+Remove on variable at a time and compare results
+
+**************
+
+Drawbacks of R**2 / RSS and why measures like
+AIC, BIC, and adjusted R**2 are more approriate.
+
+R**2 is easy to understand
+
+R**2 is localized to the training data so it
+is not reflective of what it may be like with
+a new data set
+
+MEDIOCRE TESTS:
+
+R**2 RSS
+
+R**2 increases or stays the same
+with more variables and RSS goes down or stays the
+same
+
+BETTER TESTS:
+
+Adjusted R**2 is better - higher is better = 1 - RSS/(n-p-1)
+                                                ____________
+                                                 TSS/(n-1)
+AIC - lower is better = -2ln(L) + 2k
+BIC - lower is better = -2ln(L) + ln(n/k)
+
+Introduce penalty term for complexity
+
+k - number of predictors
+n - sample size or number of observations
+L - likelihood
+p - number of predictors
+
+BEST TEST:
+
+MSS on a cross validation data set
+
+******************************************************
+
+*********************
+
+Validation Set Approach
+----------> Not a good approach
+
+all data is used for generating models to be
+compared against each other
+
+*********************
+
+Hold out data for second test for new error metric on a new
+data set.
+
+Validation Set Approach:
+
+randomly pull training and validation set from the entire
+data set
+
+Validation training set is used to calculate the MSE
+
+Randomly keep pulling sets out of the data and recalculate
+MSE 
+
+*********************
+
+Cross Validation Set Approach
+
+test set < 50% - model never sees it 
+
+training set is used for cross validation
+never used for creating the model
+
+Don't take random subsets
+Take a predetermined subsets
+
+*********************
+Leave one out cross validation
+*********************
+
+For each model:
+
+    1 - fit same model n times
+    2 - method 
+     for n times within the training set:
+
+         a - take n - 1 data points
+         b - fit the model on n - 1 data points
+         c - predict the n'th data point that was left out
+         d - calculate error
+        
+    3 - MSE of leave one out cross validation
+
+*********************
+k-fold validation
+
+----------> Best validation
+
+*********************
+
+Pick the number of folds between 5 and 10 not at random
+
+For each model:
+
+    1 - fit same model k fold times (training set divided k times)
+    2 - method 
+     for k times within the training set with the folds:
+
+         a - leave out k fold for training
+         b - fit the model on the remaining folds
+         c - predict the fold that was left out
+         d - calculate error
+        
+    3 - MSE of k fold cross validation
+
+******************************************************
+
+Comparison of models
+
+BIAS
+
+LOOCV < k-fold < validation set
+
+VARIANCE 
+
+validations set < k-fold < LOOCV
+
+******************************************************
+
+After training and validating data then use all the
+data before deploying model using training and test 
+set data to get the final parameters
+
+******************************************************
