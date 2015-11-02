@@ -14,6 +14,17 @@ key value pairs for dicionaries
 
 lambda with map and reduce
 
+######################################################################
+
+WEEK 1 Software Engineering + EDA
+
+######################################################################
+
+REPO- Assessment-day1
+      pthon-intro
+
+********************************
+
 constructor -> creates object --> __init__ magic method
 method -> function which akkcts on an object
 
@@ -22,7 +33,6 @@ CONCEPTS:
 argmax
 
 argument with the max value
-
 
 MAGIC METHODS:
 
@@ -53,7 +63,6 @@ ENUMERATION:
 
 range generate all values while xrange does one at a time to save memory
 
-
 for i, item in enumerate(L):
     print i, item
 
@@ -83,18 +92,19 @@ L = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
 [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+********************************
+
+REPO: sql
+
+********************************
+
 POSTGRES:
 
 sudo su postgres
-
 user postgres
-
 psql dbname
-
 \d # tablenames
-
 \d tablename # column names
-
 \q # quit
 
 select userid, campaign_id, events.meal_id, type, 
@@ -193,7 +203,6 @@ conn.close()
 
 conn.rollback() 
 
-
 c.execute(
     '''SELECT userid1
        FROM friends;'''
@@ -212,7 +221,12 @@ for result in c:
 
 c.fetchall() -- returns list of tuples
 
-PANDAS
+********************************
+
+REP: slq-python
+     PANDAS
+
+********************************
 
 from math import sqrt
 import random
@@ -262,7 +276,6 @@ boolean indexing is masking
 (s > 0).head()
 s[s > 0].head()
 
-
 iloc[:,1:]
 
 rows, columns
@@ -291,9 +304,17 @@ mosaic plot
 multiple pie
 stacked bar
 
-###########################################
 
-PROBABILITY:
+######################################################################
+
+WEEK 2: Statistics and Probability
+
+######################################################################
+
+REPO: Assessment 2
+      Probability
+
+********************************
 
 Don't care on what you will believe if something
 will happen. "confidence"
@@ -334,7 +355,7 @@ Define two events A and B
 
 Bayes Rule:
 
-P(A | B ) = P(A) * (P( A | B)) / P(B)
+P(A | B ) = P(A) * (P( B | A)) / P(B)
 
 Mutually exclusive vs. Independent events
 (rain, no rain - cannot occur at the same time)
@@ -538,8 +559,10 @@ scs.nameofdistribution. and then...
 
 1 - pmf - P(X = x) discrete qualitative
           probability mass function value at instance 
+
 * - pdf - P(X = x) continuous - for plotting not solutions - so not counted for use
           probability density function (quantitative continuous) should be 0
+
 2 - cdf - P(X <= x) may need to subtract from 1
           Cummulative Distribution Function under a range P(X <= x)
 3 - ppf - returns x given probability (quantile) "backward calculation"
@@ -611,7 +634,11 @@ Calculate M1 and M2 from values using moment calculations:
 M1 = alpha / (alpha + beta)
 M2 - M1 ** 2 = alpha * beta / ( alpha + beta ) **2 (alpha + beta + 1 ) )
 
-******************
+********************************
+
+REPO: Sampling and Estimation
+
+********************************
 
 Populations/Parameter/Sample/Statistic
 
@@ -713,13 +740,14 @@ Repeated samples from samples space.
 
 Treat sample as a population.
 
-###########################################
 
-Hypothesis Testing
+********************************
+
+REPO: Frequentist Hypothesis Testing
+
+********************************
 
 all assume normal distribution
-
-###########################################
 
 Null hypothesis H0 is what you assume to be true before collect any data.
 
@@ -856,17 +884,19 @@ Experiments vs observational studies
 
 Experiments assign individuals to a treatment
 
-******************
+
+********************************
+
+REPO: Power Calculation and Bayes
+
+********************************
 
 Bayes Rules
-
-******************
 
 https://en.wikipedia.org/wiki/Conjugate_prior
 
 Conjugate priors are nice! Beginning belief of the distribution.
 Posterior has the same distribution
-
 
 1. Simple Example
 
@@ -891,7 +921,6 @@ lambda is a draw from the conjugate prior
 
 Postierer parameters -> Pi(lambda | x) proportional_to  
 Gamma(sum(x_i) + alpha_0, ( n + (1/beta_0) ) -1 )
-
 
 2. Advanced Example
 
@@ -941,19 +970,17 @@ a = 3 b = 3 or 50% success
 
 Bayes using Beta Click through
 
-******************
+********************************
 
-Multi armed bandit
+REPO: Multi-armed-bandit
 
-******************
+********************************
 
 maximize returns on a slot machine
 
 try and explore multiple slot machines
 
-
 trade off between exploration and explotation
-
 
 regret is a meaure of how often you choose a sub-optimal bandit
 epsilon first is some exploration and more exploitation
@@ -971,17 +998,19 @@ Prob(Data given parameters)
 Baysian is looking "true" parameters givne data
 Prob( parameters given data)
 
-****************
+######################################################################
 
-Linear Algebra
+WEEK 3: REGRESSION
 
-****************
+######################################################################
+
+REPO: Linear Algebra, EDA, Linear Regression
+
+********************************
 
 dot product of two vectors is a scalor or the covariance
 
-euclidean(a ,b)
-
-is the distance between two points or vectors
+euclidean(a ,b) is the distance between two points or vectors
 
 vector norm is a number
 
@@ -1005,9 +1034,7 @@ w
 A = np.random.randint(10, size = 8).reshape(2,4)
 A.transpose()
 
-Matrix multiplication
-
-Dot product. 
+Matrix multiplication is the Dot product. 
 
 mat1 = np.random.randn(12).reshape(4, 3)
 mat2 = np.random.randn(15).reshape(3, 5)
@@ -1015,9 +1042,7 @@ mat2 = np.random.randn(15).reshape(3, 5)
 a = np.arrange(1,7).reshape(3,2)
 b = a.T
 
-in general:
-
-A r1 xc1 B r2 xc2
+in general: A r1 xc1 B r2 xc2
 
 c1 = r2
 
@@ -1033,8 +1058,6 @@ A.T = [[ 1, 3, 5 ],
 A dot A.t = [[5, 11, 17],
        [ 11, 25, 39 ] ,
        [ 17, 39, 61 ]]
-
-
 
 1*2  + 
 
@@ -1075,7 +1098,11 @@ Beta = (X tranpose dot X ) -1 dot X transpose y
 
 Dot product of 2 products is a scalor
 
-REGRESSION
+********************************
+
+REPO: Linear REGRESSION 2
+
+********************************
 
 y = beta0 + beta1(treatment) + E + beta2(age)
 
@@ -1094,7 +1121,6 @@ BP TR AGE
 120 0 40
 
 for regression the distribution of y is contingent on x
-
 
 Instead of looking at:
 
@@ -1117,9 +1143,7 @@ for significance
 
 RSS is the residual of the sum of squared errors
 
-MSE = 1/N * RSS which is the
-
-root mean square error
+MSE = 1/N * RSS which is the root mean square error
 
 FMSE = sqrt(MSE) which puts us back on scale
 
@@ -1138,11 +1162,13 @@ RSS = summation ( y_i - y_hat) ** 2
 y_bar = mean(y)
 y_hat = corresponding y value on estimated line
 
-***************************
+********************************
 
-REGRESSION
+REPO: Regularized REGRESSION
 
-***************************
+Lasso and Ridge Validation
+
+********************************
 
 Robust Residual 
 
@@ -1160,21 +1186,39 @@ Need to test normality of this error
 
 Can check:
 
-- Normal Q-Q plot, histogram
+********************************
 
-Plot studentized residuals to see if they are normal against theoretical quantiles
+REPO: Linear REGRESSION 2
+lecture.pdf
 
-Should fall on a line
+********************************
+
+- Normal Q-Q or QQ plot, histogram
+Check for normal distribution using QQ plot
+
+Plot studentized residuals to see if they are normal 
+against theoretical quantiles and should fall on a line
 
 line up sample data with values in a normal curve
+n + 1 buckets mapped on normal distribution.
+Order values from lowest to hightest and scatter plot
+against normal distribution.
+
+import scipy.stats as scs
+import matplotlib.pyplot as plt
+
+y_values = sorted([4.75, 7.90, 7.21, 5.80, 6.33, 5.78, 5.20, 4.75, 3.89])
+n = len(y_values)
+z_values =  [[scs.norm.ppf(float(i)/(n+1)) for i in xrange(1,n+1) ]]
+
+plt.scatter(z_values, y_values)
+plt.show()
 
 Studentized Residuals should be N(0,1)
-
 
 Local regression - use sliding weight function, make separate linear fits over range X
 
 Generalized additive model - just add up contributing effects
-
 
 Need to check for normal error_i  is a normal distribution
 it is proportional to studentized residials ~ N(0,1)
@@ -1184,7 +1228,24 @@ Need to check that the error rate is sigma**2
 Solution is to look at y - because it is used to calculate error
 adding more components will not help.
 
+****************************************************************
+
+Multiple Linear Regression:
+
+More x's available to predict y
+
+1) Constant Variance (homoscedasticity)
+2) Linear model is approriate
+3) Normally distribution of the errors 
+4) iid  - Indenpendent and identically distributed
+5) no multicollineartity - or coorelation between any variables
+
 multicollinearity - 
+
+Can check by VIF variance inflation factors
+
+1/ (1 - R**2)
+Large values indicate covariance
 
 - Correlation Matrix / Scatterprlot Matrix
 
@@ -1193,7 +1254,9 @@ multicollinearity -
 -- Run ordinary least squares for each predictor as function of 
 all the other predictors . k times for f predictors
 
-Rule of Thumb, > 10 is problematic
+Rule of Thumb > 10 is problematic
+
+****************************************************************
 
 OUTLIERS:
 
@@ -1210,9 +1273,7 @@ as a rule of thumb
 
 LEVERAGE
 
-Leverage point : 
-
-Var(e_i) = (1 - h_ii) * sigma ** 2
+Leverage point : Var(e_i) = (1 - h_ii) * sigma ** 2
 
 Beta = (X.T * X) ** -1 X.t * y
 
@@ -1227,18 +1288,10 @@ some points affect the regression more than other points
 Most influential points are outliers with high leverage (far from 
 cluster of points
 
-
 Look for interaction between variables by seeing systematic
 under or over predicion of values using heat map
 
-
 p value should be LESS than 0.05 for regression results
-
-**************
-
-REGRESSION
-
-**************
 
 Variance - in terms of fitting a model - fluctuations 
 in model due to change in our training data
@@ -1330,6 +1383,11 @@ MSS on a cross validation data set
 
 ******************************************************
 
+TEST FINAL MODEL FOR BEST MODEL COMPARISON
+USE VALIDATION
+
+******************************************************
+
 *********************
 
 Validation Set Approach
@@ -1337,6 +1395,10 @@ Validation Set Approach
 
 all data is used for generating models to be
 compared against each other
+
+1. Fit model on training set
+2. Use fitted model in 1 to predict responses for validation set
+3. Compute validation-set error
 
 *********************
 
@@ -1391,6 +1453,11 @@ k-fold validation
 
 Pick the number of folds between 5 and 10 not at random
 
+1. Fit model on training set, using (k-1) folds
+2. Use fitted model in 1 to predict responses for 
+validation set, 1 of the folds
+3. Compute validation-set error
+
 For each model:
 
     1 - fit same model k fold times (training set divided k times)
@@ -1423,3 +1490,555 @@ data before deploying model using training and test
 set data to get the final parameters
 
 ******************************************************
+
+Bias-Variance Tradeoff
+
+******************************************************
+
+Variance is high complexity . Amount by which f_hat 
+would changed if estimated it using a different training
+dataset. Often overfitting problem.
+
+Bias difference between expected prediction of our
+model and the correct value we are trying to predict
+Measure of the prediction of the correct value.
+
+******************************************************
+Regularization Ridge Regression
+
+lambda is a tuning parameter
+
+Regularization Lasso Regression
+
+when lambda = 0 we have linear models
+
+lambda is a tuning parameter
+
+L1 is the least absolute values
+L2 is the least squares
+
+Standardize the predictors by dividing by the
+standard deviation
+
+Need to do this anytime that you need to 
+penalize beta
+
+********************************
+
+REPO: Assessment-3 
+      Logistic =-regression
+
+********************************
+
+Motivating problem:
+
+[Binary] Claassification
+
+Response Y is an element of {0, 1}
+
+which is mutually exclusive
+
+Goals:
+
+1 - Estimate
+2 - Interpret
+3 - Predict
+4 - Metrics
+
+Preliminary:
+
+What Distribution?
+
+Bernolli takes p parameter
+
+PMF:
+
+Expected Value ( y ) = p if y = 1
+                     1-p if y = 0
+
+LIKELIHOOD function: or expected value
+
+E(y) = p**y ( 1 - p) ** (1-y)
+
+Variance:
+
+p
+
+OLS is a straight line
+
+which is not a good fit for logistic regression 
+
+OLS does deal well with separation
+
+separation is the strength of a factor in the regression
+
+Variance of OLS
+
+errors are contigent on x
+x *beta ( 1 - x *beta) 
+if x is continuous p becomes x and becomes continuous
+
+errors are heteroscatic which is a violation of normality
+
+Need link function for logistic regression:
+
+1 / ( 1 + exp(-X beta ))
+
+Likelihood for all the observations in the data 
+
+First step to maximize parameters is to change the products to
+logs.
+
+Instead work with log liklihood and take the natural log:
+
+which turns the product into a sum of values.
+
+Log likelihood of values between 0 and 1 (probablilty) is a
+negative number. so take the negative value.
+
+Penalty term
+
+L1 = sum of absolute values of beta 
+L2 = sum of beta squared
+
+Penalize likelihood by subtracting penalty term
+
+lnL = blabla_summing - [L1, L2]
+
+Biased coin:
+
+P(H) = (0.75)
+P(T) = (1.0 - 0.75) = 0.25
+
+Probability event for odds of heads:
+
+0.75/ 0.25 = 3 
+
+or 3 to 1
+
+ODDS are :
+
+p / (1-p)
+
+take log of this value will yield :
+
+X * beta
+
+Get back odds from skilear by :
+
+exp( beta )
+
+predicted probabilities 
+
+********************************
+
+LOGISTIC METRICS
+
+********************************
+
+Need to classify predicted events as a classified event
+0 or 1 using a threshold. Default is 0.5 . Above 0.5 is 
+classified as an event otherwise not an event (zero).
+
+True positives are above the threshold
+
+Lower Thresholds have more false positive Type I error
+Higher Thresholds have more false negatives Type II error
+
+True negative are below the threshold
+
+Partitioning into quardrents is called a confusion 
+matrix to show what is correct and what is not.
+
+1. Accuracy = skilearn score = all correct / all cases
+
+2. True Positive Rate = TPR = true_positives / over positive cases
+Recall or sensitiviy
+
+3. False Positive Rate = FPR = false_positives / N
+1 - specifity
+
+4. True Negative Rate = TPR = true_negatives / over negative cases
+specifity
+
+5. Precision = true positives / (true positives + false positives)
+
+Increasing the threshold will:
+
+:grinning: decrease the number of False Positives,
+:weary: decrease the number of True Positives,
+:weary: increase the number of False Negatives, and
+:grinning: increase the number of True Negatives.
+
+ROC:
+
+function ROC_curve(probabilities, labels):
+    Sort instances by their prediction strength (the probabilities)
+    For every instance in increasing order of probability:
+        Set the threshold to be the probability
+        Set everything above the threshold to the positive class
+        Calculate the True Positive Rate (aka sensitivity or recall)
+        Calculate the False Positive Rate (1 - specificity)
+
+Area under ROC should be closest to 1 for ideal values
+
+ROC curve should not below diagnol line
+
+Accuracy may be a bad example - 
+
+********************************
+
+REPO: GRADIANT-DESCENT
+
+********************************
+
+What: Numerical Optimization
+
+Why: minimize a a cost function such as MSE (descent)
+or maximize a log likelihood function (ascent)
+
+e.g.  E(y) = p**y ( 1 - p) ** (1-y)
+
+pi = 1 / ( 1 + e ** -x*beta)
+
+Gradient is the partial derivative. Positive slope is going up
+Negative slope is going down.
+
+Zero value is where the slope changes direction
+
+hessian is the second derivative and is reflective of the 
+standard error. 
+
+Tighter curves have smaller hessians than wider curves
+
+Step size of riding the curve is called "alpha"
+
+while lnL increasing:
+
+1/beta = 1/beta + ( alpha * gradient )
+
+Set a threshhold for the value close enough to zero.
+
+Option Criteria:
+
+1) derivative of beta ( ln L ) ~ 0
+2) cap for number of iterations (max_iter)
+
+Two Types of Gradient Ascent:
+
+1) Batch Gradient Ascent:
+
+set beta_k = 0
+
+while lnL increasing on full training data:
+
+beta = beta + ( alpha * gradient)
+
+2) Stochastic Gradient Descent:
+
+set beta_k = 0
+
+row by row
+while ln L increasing:
+    for i to N:
+        beta = beta + ( alpha * G)
+
+Regression Review:
+
+Simple Linear Regression
+Assumptions
+
+y ~ N(x Beta , sigma ** 2)
+
+y_hat = beta_0 + beta_1 * x_1
+
+1) Constant Variance
+2) Linear model is approriate
+3) Normally distribution of the errors 
+4) iid  - Indenpendent and identically distributed
+
+one unit in change with beta coefficient changes y by coefficient
+in regression holding everything else constant.
+
+Add dummy variables for categorical variables in regression
+Add levels - 1 for number of dummy variables.
+
+Diagnostics - compare linear regression models - MSE , AIC,  adjusted R**2, BIC
+
+Check residual plot for residuals vs. independent variables
+
+k folds to compare models with predictive power
+
+Inapproriate measures - MSE of training set the one with more variables with have a better MSE
+
+######################################################################
+
+WEEK 4 SUPERVISED LEARNING
+
+######################################################################
+
+REPO: Non Parametric Learners
+
+********************************
+
+Generalized Linear Models (GLMs) are parametric
+Regression is parametric with normal assumptions
+Response values - continuous (linear regression) vs. binary for logistic
+Supervised - has predictive label (linear and logistic regression) vs 
+Unsupervised - no predictive labels  - looking at relationships
+Parameters of Interest
+Predictor values
+Bias-variance trade off - linear model high bias and low variance 
+Bias-variance trade off - decision trees have model low bias and 
+high variance 
+Advantage of Regression is that it has interpretable beta coefficients
+
+recursion. 
+
+The 3 laws of recursion algorithm:
+
+1. must have a base case.
+2. must change its state and move toward the base case.
+3. must call itself, recursively.
+
+k-nearest neighbors (kNN) - high bias approach
+
+Parameters 1- how many neighbors 2- neighbors weight
+
+k should be an odd number so no ties
+
+Low neighbors (k) has low bias and high variance
+High neighbors (k) as high bias and low variance
+
+Library sklearn.neighbors.KNeighborsClassifier
+
+Response Values - Mostly uses categorical values
+Predictor Values - Categorical or Numerical
+
+Measures of "closeness" :
+- Cosine similarity - e.g. good with text data for scaling from 3 to 300
+because on the same line (3,4) is on the same line as (300, 400)
+- Euclidean Distance - e.g. not good with scaling (3,4) is not close to
+(300, 400)
+
+Pros: High accuracy, insensitive to outliers, no assumptions about data
+Cons: Computationally expensive, requires a lot of memory
+Works with: Numeric values, nominal values
+
+1. Collect: Any method.
+2. Prepare: Numeric values are needed for a distance calculation. 
+A structured data format is best.
+3. Analyze: Any method.
+4. Train: Does not apply to the kNN algorithm.
+5. Test: Calculate the error rate.
+6. Use: This application needs to get some input data and output structured 
+numeric values. Next, the application runs the kNN algorithm on this 
+input data and determines which class the input data should belong to. 
+The application then takes some action on the calculated class.
+
+For every point in our dataset:
+calculate the distance between inX and the current point
+sort the distances in increasing order
+take k items with lowest distances to inX
+find the majority class among these items
+return the majority class as our prediction for the class of inX
+
+Decision Trees
+
+Pros: Computationally cheap to use, easy for humans to understand 
+learned results, missing values OK, can deal with irrelevant features
+Cons: Prone to overfitting
+Works with: Numeric values, nominal values
+
+
+1. Collect: Any method.
+2. Prepare: This tree-building algorithm works only on nominal values, 
+so any continuous values will need to be quantized.
+3. Analyze: Any method. You should visually inspect the tree 
+after it is built.
+4. Train: Construct a tree data structure.
+5. Test: Calculate the error rate with the learned tree.
+6. Use: This can be used in any supervised learning task. 
+Often, trees are used to better understand the data.
+
+ID3 algorithm
+
+http://en.wikipedia.org/wiki/ID3 _algorithm
+
+Using information theory, you can measure the information before and 
+after the split.
+
+The measure of information of a set is known as the Shannon entropy, 
+or just entropy for short.
+
+To calculate entropy, you need the expected value of all the information 
+of all possible values of our class.
+
+Another common measure of disorder in a set is the Gini impurity.
+
+Assumptions about data for trees.py:
+
+1) Data comes in the form of a list of lists 
+2) all these lists are of equal size 
+3) last column in the data or the last item in each instance is the 
+class label of that instance 
+
+You use these assumptions in the first line of the function to find 
+out how many features you have available 
+in the given dataset. 
+
+We didn’t make any assumption on the type of data 
+in the lists. It could be a number or a string; it doesn’t matter.
+
+Decision trees can be applied to both regression and classification problems
+
+REGRESSION
+
+Building a Regression Tree
+1. Use recursive binary splitting to grow a large tree on the training
+data, stopping only when each terminal node has fewer than some
+minimum number of observations.
+2. Apply cost complexity pruning to the large tree in order to obtain a
+sequence of best subtrees, as a function of α .
+3. Use K-fold cross-validation to choose α . That is, divide the training
+observations into K folds. For each k =1 ,...,K :
+(a) Repeat Steps 1 and 2 on all but the k th fold of the training data.
+(b) Evaluate the mean squared prediction error on the data in the
+left-out k th fold, as a function of α .
+
+Average the results for each value of α , and pick α to minimize the
+average error.
+4. Return the subtree from Step 2 that corresponds to the chosen value
+
+********************************
+
+REPO: Random Forest
+
+********************************
+
+CLASSIFICATION
+
+A classification tree is very similar to a regression tree, 
+except that it is classification tree
+used to predict a qualitative response rather than a quantitative one.
+
+We predict that each observation belongs to the
+most commonly occurring class of training
+observations in the region to which it belongs.
+
+class proportions among the training observations that fall into that region
+
+Decision trees for regression and classification have a number of 
+advantages over the more classical approaches such as regression:
+
+1) Trees are very easier to explain than linear regression
+
+2) decision trees more closely mirror human decision-making 
+than do the regression and classification approaches
+
+3) Trees can be displayed graphically, and are easily interpreted 
+
+4) Trees can easily handle qualitative predictors without the need to
+create dummy variables.
+
+Disadvantage
+
+---> Not good predictors 
+---> High variance
+
+Bagging, random forests, and boosting use trees as building blocks to
+construct more powerful prediction models 
+
+combining a large number of trees can often result in dramatic
+improvements in prediction accuracy, at the expense of some 
+loss in interpretation.
+
+bagging - bootstrap aggregation - averaging a set of observations 
+reduces variance
+
+samples from the (single) training data set. In this approach we generate 
+B different bootstrapped training data sets. 
+We train our method on the b th bootstrapped training set:
+
+f_hat ∗ b (x), and finally average all the predictions, to obtain
+
+f_hat_bag (x)= 1 B B b =1 f_hat ∗ b (x) This is called bagging.
+
+random forests - in building a random forest, at each split in the tree,
+the algorithm is not even allowed to consider a majority of the available
+predictors.
+
+The main difference between bagging and random forests is the choice
+of predictor subset size m .
+
+boosting
+
+Boosting works like bagging, except that the trees are
+grown sequentially : each tree is grown using information from previously
+grown trees. Boosting does not involve bootstrap sampling; instead each
+tree is fit on a modified version of the original data set
+
+Boosting has three tuning parameters:
+
+1. The number of trees B . Unlike bagging and random forests, boosting
+can overfit if B is too large, although this overfitting tends to occur
+slowly if at all. We use cross-validation to select B .
+
+2. The shrinkage parameter λ , a small positive number. This controls the
+rate at which boosting learns. Typical values are 0 .  01 or 0 .  001, and
+the right choice can depend on the problem. Very small λ
+can require using a very large value of B in order to achieve good performance.
+
+3. The number d of splits in each tree, which controls the complexity
+of the boosted ensemble. Often d = 1 works well, in which case each
+tree is a stump , consisting of a single split. In this case, the boosted
+stump ensemble is fitting an additive model, since each term involves only a
+single variable. More generally d is the interaction depth ,and controls
+interaction depth the interaction order of the boosted model, since
+d splits can involve at most d variables.
+
+********************************
+
+REPO: SVM
+
+********************************
+
+The support vector machine (SVM) is a generalization of a simple and 
+intuitive classifier called the maximal margin classifier.
+
+Hyperplane - In a p-dimensional space, a hyperplane
+is a flat affine subspace of hyperplane dimension p − 1.
+
+A natural choice is the maximal margin hyperplane
+(also known as the maximal margin hyperplane optimal separating hyperplane
+), which is the separating hyperplane that optimal separating hyperplane
+is farthest from the training observations
+
+Advantages:
+
+1) Greater robustness to individual observations
+2) Better classification of most of the training observations.
+
+The support vector machine (SVM) is an extension of the support vector
+support vector machine classifier that results from enlarging the 
+feature space in a specific way, using kernels .
+
+********************************
+
+REPO: Boosting
+
+********************************
+
+
+
+********************************
+
+REPO: Assessment-4
+      Profit-Curves
+
+********************************
+
+
+
+
+
