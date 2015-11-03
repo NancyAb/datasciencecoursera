@@ -452,7 +452,8 @@ scs.binom.pmf(8, 10, .95)
 
 Negative Binomial - geometric combined until n misses e.g. trial until n (e.g.) 3 misses
 
-Poisson (lambda) (where lambda > 0): a probability distribution over the nonnegative integers used for modeling the frequency of rare events
+Poisson (lambda) (where lambda > 0): a probability distribution over the nonnegative integers 
+used for modeling the frequency of rare events
 Number of events that can happen in an interval.
 Positive discrete. Right skew. Non-symetric. 
 
@@ -747,6 +748,11 @@ REPO: Frequentist Hypothesis Testing
 
 ********************************
 
+estimation approaches
+
+- maximum likelihood estimation (central limit applies)
+- moments
+
 all assume normal distribution
 
 Null hypothesis H0 is what you assume to be true before collect any data.
@@ -905,9 +911,18 @@ Data follows a Poisson distribution
 Conjugate prior is a gamma distribution because is goes from 0 to infinity
 with the same range as the distribution of the MEAN. Feeding in 
 distribution of the parameter of the likelihood of the data.
+right skewed is gama
 
 Gamma will be the posterior with the gamma conjugate prior to generate 
-the mean for the distribution
+the mean for the distribution alpha and beta
+
+exponential is a special case of gamma distribution where 
+beta is not fixed and alpha is 1
+
+chi squared is a special case of gamma for 
+categorical modeling and variance variance modeling
+
+t distribution has degrees of freedom as a parameter
 
 Keep updating conjugate prior with new posterior hyperparameters 
 using the gamma distribution 

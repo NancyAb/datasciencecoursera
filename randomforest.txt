@@ -56,3 +56,80 @@ Random forest overfit:
 
 use all features
 
+REVIEW:
+
+Multiple Linear Regression:
+
+Pretend I want to model sales based on foot traffic and city size  (large , small ,  medium)
+
+sales = b_0 + b1 * foot_traffic + b2 * dummy_city_size_med + b3 * dummy_city_size_large
+
+coefficients are from solving the equation
+
+b = (X'X)X'y
+
+add constant value for stats models for intercept
+
+Tom Est SE
+Int 0.02 .001
+ft .3  .43
+cs large 10.3  3
+cd med  4.3   1.2
+weekday    -1.2    0.4
+
+1 for weekday and 0 for weekend
+
+Multiple Linear Regression
+Interpret:
+0.3 increase in sales with each increase in foot traffic holding everything else constant, 
+standard error is larger than value s onto a strong predictor of sales
+
+1.2 decrease in sales for a weekday from the baseline (weekend) holding everything else constant
+0.02 increase for sales for a small city weekend baseline holding everything else constant
+
+Lasso and Ridge have regression adjustments
+Make coefficients small
+
+lambda = 0 creates a multiple regression model
+
+These perform better on the data
+Lasso will drop terms from a model to reduce the dimensions of a model
+
+How to compare linear regression models Use 
+
+-Cross validation by minimizing MSE for a model
+-AIC lower values are good, data dependent on how small is good enough
+-BIC lower values are good, data dependent on how small is good enough
+-R Squared Adjusted
+
+Can compare AIC and BIC models - need same data. Feature independent.
+
+Logistic Regression - for a binary response for a probability between 0 and 1
+Use threshhold for deciding whether value is 0 or 1
+log( p / (1-p)) = b0 + b1*x1 + b2*x2 + ... + bn*xn
+
+Interpret same results:
+for every increase in foot traffic there is a multiplicative increase of odds exp(0.3) 1.3459 
+holding everything constant
+
+How to compare logistical models Use 
+-ROC curve
+-AIC
+
+link function links value back to response
+Bernoullii(p) ~ y
+
+Comm
+
+Decision Trees
+
+Random Forests 
+
+Bayesian Probability
+
+
+
+Probability Distributions
+
+Estimations
+
