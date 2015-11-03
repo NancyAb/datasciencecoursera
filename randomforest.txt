@@ -1,0 +1,58 @@
+1) bootstrap sample your data
+
+2) for each bootstrap sample fit a decision tree
+
+3) BOOTSTRAP AGGREGATION - Choose with replacement
+if you use all the fatures to fit your decision tree,
+this is called "bagging" 
+
+4) Average predictions from all trees
+
+Random Forrest we do-correlate the trees by only allowing
+a subset of the features to be considered for each split.
+
+Common choice is the sqrt(m) wheree m is the total number 
+of features in your dataset.
+
+reduces bias by having multiple trees that grow down
+averaging across multiple trees then variance is reduced
+
+run values through all trees and then average response 
+
+random forrests are popoular and intuitive to use
+
+bootstrap samples and subset features and grow deep
+trees. Average results over flow of all trees.
+
+sklearn.ensemble.randomforest()
+
+ensemble - combining results
+
+easy to parallize because each tree can go to a different 
+processor
+
+boosting is not paralazabable
+
+OOB (out of bag ) error rates for each tree 
+Averages accross trees then converges on cross validation value
+
+k-fold - validation
+
+take k folds all data is randomonly assigned to k folds.
+
+hold out one of the folds for testing
+
+rest of the folds are used to build the modell
+
+this will give us an idea of how well the model will
+run in the wild.
+
+OVERFIT:
+
+high complexity and zero error rate on training data
+poor validation
+
+Random forest overfit:
+
+use all features
+
