@@ -2014,6 +2014,138 @@ d splits can involve at most d variables.
 
 ********************************
 
+REPO: Neural Nets
+
+********************************
+When to use Neural Nets:
+
+1) Don't use if you have a linear model
+2) Large amount of data over 500,000 observations
+3) Can approximate arbitary functions
+
+Large data is 500,000 to over a million 
+
+3 Types of Neural Nets:
+
+1) Feed forward . Info is fed unidirectionaly through the net
+2) Recurrent - nerual net with directional update and feedback loops
+3) Unsupervised learning - self organizing maps
+
+Feed Forward 
+
+1) Input layer
+a) # nodes = # features
+b) input are our observations
+
+Produces :
+
+V = a0 + a1*x1 + a2*x2 + ... + an*xn
+
+2) Hidden layer (without hidden layer then just regression)
+a) user defined activation funcion such as sigmoid + 1 + hidden layers
+b) inputs are a weighted sum of the previous layer
+
+activation functions:
+1) sigmoid family : f(x) = 1 / ( 1 + exp(-x)) 
+bound by 0 and 1  - used as building blocks for abritary function building
+2) tanh : f(x) = 
+bound by -1 and 1
+2) relu : f(x) = 
+linear response unbounded
+
+3) Output Layer
+
+a) # nodes is output dependent
+
+i) regression setting = 1 note - which is the final quantitative result
+ii)  classification setting = # classes - probability for each class
+
+b) inputs are a weighted sum of the previous layer
+
+c) Activation function
+
+4) Bias terms - analogous to the intercept in a linear regression as an input without a node
+
+Feed Forward with one hidden layer:
+
+"Fully connected network" or "Dense network" shown with nodes.
+
+Weights are randomly initialized. Need to have normalized features so that all can be compared
+to each other.
+
+Step function could be approximated by random forest
+
+U to z transition if linear is the same value 
+
+x -> v -> y -> U ->  compare to t
+
+Another example:
+
+x = 0.5 
+
+aij are random weights
+
+v1 = a01*1 + a11*x = 20.8 * 1 + 0.69 * 0.5 = -13.7
+v2 = a02*1 + a12*x = 47.6 * 1 + 0.68 * 0.5 =  13.6
+
+y1 = 1/ (1 + exp((13.7) ) = 1.1122 * 10 -6  
+y2 = 1/ (1 + exp((-13.6) ) = 0.999
+
+U = b0 * 1 + db1 * y1 + b2*y2 
+  = 0.25 - (0.5) (1.22X 10 -6) + (0.5) (0.9999)
+ = 0.75
+
+U = z = 0.75
+
+apply sigmoid function to get output
+
+Backward Neural Nets
+Training: Adjust weights using error metric through 
+back propogation
+
+1) MSE = (0.5 - 0.25) ** 2 = 0.0625
+
+Start with error term and work backwards throught these weights:
+
+Take the partial derivative (pd) of error with respect to b1
+
+which is equal to Z -> final output using the chain rule
+
+GRADIENT:
+
+pd(E) / pd(b1) =(  pd(E)/ pd(Z) ) * ( pd(Z)/ pd(U) ) * ( pd(U) / pd(p1) )
+
+Problem with multiplying the derivative may cause an exploding or 
+a vanishing network for the gradient
+
+Multilayer Perceptron (MLP) is a 
+is a feedforward artificial neural network model that maps sets of input 
+data onto a set of appropriate outputs. 
+
+model = sequential()
+model.compile(loss = 'categorical_crossentropy',optimizer='RMSprop')
+model.add(Dropout(0.35))
+
+#
+# dropout randomly choose observations that the hidden layer sees
+# so the nodes become more independent with less data.
+# same as regularization and max step on trees
+#
+#
+
+Regularization or dropout will decrease variance in the model 
+Prevents overfitting. 
+
+Up complexity is modeling noise. 
+
+Dropout allows for each node to have less say and reduces complexity
+
+keras library
+
+*******************************
+
+********************************
+
 REPO: SVM
 
 ********************************
@@ -2044,7 +2176,91 @@ REPO: Boosting
 
 ********************************
 
+Model process:
 
+make model f0(x)
+for m in M:
+    take the errors from f_m-1(x)
+    fit a model to those errors with a decision tree T_m
+    update total model:
+
+        f_m(x)  <-- f_m-1(x) + T_m(x)
+
+Boosting is not Bagging or random forest:
+
+Bagging - bootstrap many trees, each tree independently grown,
+in an effort to decrease variance through averaging
+
+Random Forest - Similiar idea, but take random subset of possible 
+freatures at each split to "decorrelate the trees"
+
+Gradient boosted regression trees:
+
+- instead of fitting to reweight trainig observations, fit residuals 
+to of previous tree
+
+increased complexity increases variance to fitting the next model
+bias is the residual sum of squares
+
+
+greedy model is GBRT with shrinkage factor 
+
+AdaBoost - Each tree is expert on attacking errors of predecessor
+iteratively re-weighs observations based on errors
+
+Discrete AdaBoost
+
+Use trees with a depth 4 - 6 
+
+Gradient boosting stump to 8
+Random forest is deepest posible
+
+GBRT is sklearn - tuning - 
+1) set n_estimators high as possible
+2) tune hyperparameters together via grid search
+
+from sklearn.grid_search import GridSearchCV
+
+pram_grid = {'learning_rate':
+'max_depth':
+'min_sample_leaf':
+max_features': }
+
+est = GradientBoostingRegressor(n_estimators=3000)
+gs_cv = GridSearchCV(est, param_grid).fit(X, y)
+gs_cv.best_params_
+
+
+***************
+
+Bagging/RF/Boosting
+Feature and Variable importance
+
+1) Feature 
+2) Partial Dependency plot - gives relationship with outcome - fix
+variable value and see outcome when it goes through the model
+look at the average predicted value
+look for the shape of the relationship with the data
+how much the dependent variable changes
+
+3) Stochastic gradient boosting
+4) correlated predictors have multicolinearity so can handle corelation but linear regression cannot
+Not harmful to these models
+random forests accounts for this because of the subset feature selection 
+gradient boosting has the all features so handles correlation differeently
+
+
+start with random forest and go to gradient boosting
+
+training data in a random forest :
+
+random selection with replacement
+bagging - boostrap aggregation - OOB - out of bag error rate
+use a subset of features (sqrt(n)) recommended
+
+1) Calculate OOB error rate - train tree model - and calculate OOB
+2) Shuffle values X1 or permute 
+3) Permute - and recalulate error rate
 
 ********************************
 
@@ -2052,8 +2268,4 @@ REPO: Assessment-4
       Profit-Curves
 
 ********************************
-
-
-
-
 
