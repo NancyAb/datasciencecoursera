@@ -1037,6 +1037,10 @@ np.corrcoef(a,b)[0,1]
 vector_norm(a) - length of the vector from the origin
 
 also called lasso penalty
+lambda parameter
+
+Lambda increasing results in the model becoming more rigid which reduces variance and increasing bias
+Lambda decreasing results in the model becoming more complex which increases variance and decreases bias
 
 np.sum([np.absolute(x) for x in a])
 np.sum([ x** 2 for x in a])
@@ -1523,7 +1527,7 @@ Regularization Ridge Regression
 
 lambda is a tuning parameter
 
-Regularization Lasso Regression
+Regularization lasso Regression
 
 when lambda = 0 we have linear models
 
@@ -1817,13 +1821,14 @@ The 3 laws of recursion algorithm:
 3. must call itself, recursively.
 
 k-nearest neighbors (kNN) - high bias approach
+k nearest neighbors (kNN) - high bias approach
 
 Parameters 1- how many neighbors 2- neighbors weight
 
 k should be an odd number so no ties
 
 Low neighbors (k) has low bias and high variance
-High neighbors (k) as high bias and low variance
+High neighbors (k) as high bias and low variance as averaging more values
 
 Library sklearn.neighbors.KNeighborsClassifier
 
@@ -1837,7 +1842,12 @@ because on the same line (3,4) is on the same line as (300, 400)
 (300, 400)
 
 Pros: High accuracy, insensitive to outliers, no assumptions about data
+good for intuitive algorithm,  looking for missing values, not used 
+often for prediction
 Cons: Computationally expensive, requires a lot of memory
+computational intensive if lots of dimensions
+curse of dimensionality
+
 Works with: Numeric values, nominal values
 
 1. Collect: Any method.
@@ -1981,7 +1991,14 @@ f_hat_bag (x)= 1 B B b =1 f_hat ∗ b (x) This is called bagging.
 
 random forests - in building a random forest, at each split in the tree,
 the algorithm is not even allowed to consider a majority of the available
-predictors.
+predictors. Take random sqrt(number of features) for each tree split
+This would decorrelate the tree and would keep the trees looking the
+same.
+
+can distribute easily random forests across parallel processors
+
+trees grow out tree reduced bias and high variance
+average across the trees reduce variance across them
 
 The main difference between bagging and random forests is the choice
 of predictor subset size m .
@@ -2012,6 +2029,10 @@ single variable. More generally d is the interaction depth ,and controls
 interaction depth the interaction order of the boosted model, since
 d splits can involve at most d variables.
 
+boosting cannot easily be paralazable
+stochastic boosting
+adaboost is another boosting
+
 ********************************
 
 REPO: Neural Nets
@@ -2022,6 +2043,11 @@ When to use Neural Nets:
 1) Don't use if you have a linear model
 2) Large amount of data over 500,000 observations
 3) Can approximate arbitary functions
+
+Grid search to see what features would work well
+Supervised 
+
+self organized map is unsupervised neural net
 
 Large data is 500,000 to over a million 
 
@@ -2150,6 +2176,67 @@ REPO: SVM
 
 ********************************
 
+hyperplane split
+
+C tuning parameter or budget:
+
+C small is low bias, high variance
+C large is high bias, low variance
+Increase C increase bias and lowers variance more support vectors
+As C increases more error is allowed. 
+
+gamma is another training parameter or 1/r or radius of influence of the support vector.
+
+r is the radius of influence.
+
+1) skilearn gamma search over cross validation
+2) if data has separability problems in logistic regression svm should be better
+
+Very slow.  Does not scale very well.
+
+Should consider logistic regression, k nearest neighbors, random forest, 
+boosted tree
+
+Benefit is to recast data with a kernel such as a guasian to transform data
+into another dimension where they are separatable in another dimension
+
+Need to normalize
+
+b + w T * x = 0 
+
+maximize distance between groups - is reducing variance and increasing bias
+
+inducing bias is called - regularization
+
+margin is called support vectors with points in margin. Outside of margin is explicity
+classified. Each of those points is called a support vector. Need these vectors to define
+points between the classifications
+
+Measure epsilon from margin to points which is a tuning parameter which is summed
+into C which is called "budget"
+
+More vectors are decreasing variance or regularization
+
+Soft margin.
+
+Can model a circle of data in a donut by transforming the data:
+
+b0 + b1x1 + b2x2 +b3x1**2 + b3*x2**2 + b5x1x1
+
+into a higher space.
+
+Accomplishes this with a dot product - only values with positive alpha values are scored the
+rest of the points in the margin are set to zero so that they don't have an influence on the
+hyperplane.
+
+Different kernels determine measurement of similuarity
+The Gausian kernal or RBF radial basis formula
+=K(x, xi) = exp(-gamma * abs( x - x2)**2) 
+
+Budget for bias/variance tradeoff ? C for making errors
+
+curse of dimensionality  ??
+
 The support vector machine (SVM) is a generalization of a simple and 
 intuitive classifier called the maximal margin classifier.
 
@@ -2268,4 +2355,12 @@ REPO: Assessment-4
       Profit-Curves
 
 ********************************
+REVIEW
 
+false negatives are type II errors
+false positives are type I errors
+
+two methods of predicting in python
+
+.predict_proba()
+.predict()
