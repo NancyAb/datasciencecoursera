@@ -452,8 +452,7 @@ scs.binom.pmf(8, 10, .95)
 
 Negative Binomial - geometric combined until n misses e.g. trial until n (e.g.) 3 misses
 
-Poisson (lambda) (where lambda > 0): a probability distribution over the nonnegative integers 
-used for modeling the frequency of rare events
+Poisson (lambda) (where lambda > 0): a probability distribution over the nonnegative integers used for modeling the frequency of rare events
 Number of events that can happen in an interval.
 Positive discrete. Right skew. Non-symetric. 
 
@@ -748,11 +747,6 @@ REPO: Frequentist Hypothesis Testing
 
 ********************************
 
-estimation approaches
-
-- maximum likelihood estimation (central limit applies)
-- moments
-
 all assume normal distribution
 
 Null hypothesis H0 is what you assume to be true before collect any data.
@@ -911,18 +905,9 @@ Data follows a Poisson distribution
 Conjugate prior is a gamma distribution because is goes from 0 to infinity
 with the same range as the distribution of the MEAN. Feeding in 
 distribution of the parameter of the likelihood of the data.
-right skewed is gama
 
 Gamma will be the posterior with the gamma conjugate prior to generate 
-the mean for the distribution alpha and beta
-
-exponential is a special case of gamma distribution where 
-beta is not fixed and alpha is 1
-
-chi squared is a special case of gamma for 
-categorical modeling and variance variance modeling
-
-t distribution has degrees of freedom as a parameter
+the mean for the distribution
 
 Keep updating conjugate prior with new posterior hyperparameters 
 using the gamma distribution 
@@ -1037,10 +1022,6 @@ np.corrcoef(a,b)[0,1]
 vector_norm(a) - length of the vector from the origin
 
 also called lasso penalty
-lambda parameter
-
-Lambda increasing results in the model becoming more rigid which reduces variance and increasing bias
-Lambda decreasing results in the model becoming more complex which increases variance and decreases bias
 
 np.sum([np.absolute(x) for x in a])
 np.sum([ x** 2 for x in a])
@@ -1527,7 +1508,7 @@ Regularization Ridge Regression
 
 lambda is a tuning parameter
 
-Regularization lasso Regression
+Regularization Lasso Regression
 
 when lambda = 0 we have linear models
 
@@ -1807,7 +1788,7 @@ Supervised - has predictive label (linear and logistic regression) vs
 Unsupervised - no predictive labels  - looking at relationships
 Parameters of Interest
 Predictor values
-Bias-variance trade off - linear model high bias and low variance 
+Bias-variance trade off - REGRESSION linear model high bias and low variance 
 Bias-variance trade off - decision trees have model low bias and 
 high variance 
 Advantage of Regression is that it has interpretable beta coefficients
@@ -1821,14 +1802,13 @@ The 3 laws of recursion algorithm:
 3. must call itself, recursively.
 
 k-nearest neighbors (kNN) - high bias approach
-k nearest neighbors (kNN) - high bias approach
 
 Parameters 1- how many neighbors 2- neighbors weight
 
 k should be an odd number so no ties
 
 Low neighbors (k) has low bias and high variance
-High neighbors (k) as high bias and low variance as averaging more values
+High neighbors (k) as high bias and low variance
 
 Library sklearn.neighbors.KNeighborsClassifier
 
@@ -1842,12 +1822,7 @@ because on the same line (3,4) is on the same line as (300, 400)
 (300, 400)
 
 Pros: High accuracy, insensitive to outliers, no assumptions about data
-good for intuitive algorithm,  looking for missing values, not used 
-often for prediction
 Cons: Computationally expensive, requires a lot of memory
-computational intensive if lots of dimensions
-curse of dimensionality
-
 Works with: Numeric values, nominal values
 
 1. Collect: Any method.
@@ -1875,6 +1850,8 @@ learned results, missing values OK, can deal with irrelevant features
 Cons: Prone to overfitting
 Works with: Numeric values, nominal values
 
+VARIANCE - complexity reduces
+BIAS - complexity increases
 
 1. Collect: Any method.
 2. Prepare: This tree-building algorithm works only on nominal values, 
@@ -1899,7 +1876,26 @@ or just entropy for short.
 To calculate entropy, you need the expected value of all the information 
 of all possible values of our class.
 
-Another common measure of disorder in a set is the Gini impurity.
+CLASSIFICATION Tree USES Gini coefficient or cross entropy.
+sklearn defaults to Gini
+Gini uses p for proportion 
+can be at split or for entire model
+
+sklearn.tree.DecisionTreeClassifier
+
+sklearn.tree.DecisionTreeRegressor
+
+negative mean square error is reported by sklearn 
+
+REGRESSION Tree uses RSS
+
+sklearn fits to single node which is overfitting by default
+give it the minimum number of samples or max depth
+
+Pruning will prevent overfitting by chopping off lower branches
+with high misclassification rates
+
+Make a split for node purity to increase
 
 Assumptions about data for trees.py:
 
@@ -1917,7 +1913,9 @@ in the lists. It could be a number or a string; it doesn’t matter.
 
 Decision trees can be applied to both regression and classification problems
 
-REGRESSION
+CLASSIFICATION TREE - for categorical response values
+
+REGRESSION for quantitative continuous response data
 
 Building a Regression Tree
 1. Use recursive binary splitting to grow a large tree on the training
@@ -1940,6 +1938,8 @@ average error.
 REPO: Random Forest
 
 ********************************
+
+Random Forest uses decision trees
 
 CLASSIFICATION
 
@@ -1991,14 +1991,7 @@ f_hat_bag (x)= 1 B B b =1 f_hat ∗ b (x) This is called bagging.
 
 random forests - in building a random forest, at each split in the tree,
 the algorithm is not even allowed to consider a majority of the available
-predictors. Take random sqrt(number of features) for each tree split
-This would decorrelate the tree and would keep the trees looking the
-same.
-
-can distribute easily random forests across parallel processors
-
-trees grow out tree reduced bias and high variance
-average across the trees reduce variance across them
+predictors.
 
 The main difference between bagging and random forests is the choice
 of predictor subset size m .
@@ -2029,213 +2022,11 @@ single variable. More generally d is the interaction depth ,and controls
 interaction depth the interaction order of the boosted model, since
 d splits can involve at most d variables.
 
-boosting cannot easily be paralazable
-stochastic boosting
-adaboost is another boosting
-
-********************************
-
-REPO: Neural Nets
-
-********************************
-When to use Neural Nets:
-
-1) Don't use if you have a linear model
-2) Large amount of data over 500,000 observations
-3) Can approximate arbitary functions
-
-Grid search to see what features would work well
-Supervised 
-
-self organized map is unsupervised neural net
-
-Large data is 500,000 to over a million 
-
-3 Types of Neural Nets:
-
-1) Feed forward . Info is fed unidirectionaly through the net
-2) Recurrent - nerual net with directional update and feedback loops
-3) Unsupervised learning - self organizing maps
-
-Feed Forward 
-
-1) Input layer
-a) # nodes = # features
-b) input are our observations
-
-Produces :
-
-V = a0 + a1*x1 + a2*x2 + ... + an*xn
-
-2) Hidden layer (without hidden layer then just regression)
-a) user defined activation funcion such as sigmoid + 1 + hidden layers
-b) inputs are a weighted sum of the previous layer
-
-activation functions:
-1) sigmoid family : f(x) = 1 / ( 1 + exp(-x)) 
-bound by 0 and 1  - used as building blocks for abritary function building
-2) tanh : f(x) = 
-bound by -1 and 1
-2) relu : f(x) = 
-linear response unbounded
-
-3) Output Layer
-
-a) # nodes is output dependent
-
-i) regression setting = 1 note - which is the final quantitative result
-ii)  classification setting = # classes - probability for each class
-
-b) inputs are a weighted sum of the previous layer
-
-c) Activation function
-
-4) Bias terms - analogous to the intercept in a linear regression as an input without a node
-
-Feed Forward with one hidden layer:
-
-"Fully connected network" or "Dense network" shown with nodes.
-
-Weights are randomly initialized. Need to have normalized features so that all can be compared
-to each other.
-
-Step function could be approximated by random forest
-
-U to z transition if linear is the same value 
-
-x -> v -> y -> U ->  compare to t
-
-Another example:
-
-x = 0.5 
-
-aij are random weights
-
-v1 = a01*1 + a11*x = 20.8 * 1 + 0.69 * 0.5 = -13.7
-v2 = a02*1 + a12*x = 47.6 * 1 + 0.68 * 0.5 =  13.6
-
-y1 = 1/ (1 + exp((13.7) ) = 1.1122 * 10 -6  
-y2 = 1/ (1 + exp((-13.6) ) = 0.999
-
-U = b0 * 1 + db1 * y1 + b2*y2 
-  = 0.25 - (0.5) (1.22X 10 -6) + (0.5) (0.9999)
- = 0.75
-
-U = z = 0.75
-
-apply sigmoid function to get output
-
-Backward Neural Nets
-Training: Adjust weights using error metric through 
-back propogation
-
-1) MSE = (0.5 - 0.25) ** 2 = 0.0625
-
-Start with error term and work backwards throught these weights:
-
-Take the partial derivative (pd) of error with respect to b1
-
-which is equal to Z -> final output using the chain rule
-
-GRADIENT:
-
-pd(E) / pd(b1) =(  pd(E)/ pd(Z) ) * ( pd(Z)/ pd(U) ) * ( pd(U) / pd(p1) )
-
-Problem with multiplying the derivative may cause an exploding or 
-a vanishing network for the gradient
-
-Multilayer Perceptron (MLP) is a 
-is a feedforward artificial neural network model that maps sets of input 
-data onto a set of appropriate outputs. 
-
-model = sequential()
-model.compile(loss = 'categorical_crossentropy',optimizer='RMSprop')
-model.add(Dropout(0.35))
-
-#
-# dropout randomly choose observations that the hidden layer sees
-# so the nodes become more independent with less data.
-# same as regularization and max step on trees
-#
-#
-
-Regularization or dropout will decrease variance in the model 
-Prevents overfitting. 
-
-Up complexity is modeling noise. 
-
-Dropout allows for each node to have less say and reduces complexity
-
-keras library
-
-*******************************
-
 ********************************
 
 REPO: SVM
 
 ********************************
-
-hyperplane split
-
-C tuning parameter or budget:
-
-C small is low bias, high variance
-C large is high bias, low variance
-Increase C increase bias and lowers variance more support vectors
-As C increases more error is allowed. 
-
-gamma is another training parameter or 1/r or radius of influence of the support vector.
-
-r is the radius of influence.
-
-1) skilearn gamma search over cross validation
-2) if data has separability problems in logistic regression svm should be better
-
-Very slow.  Does not scale very well.
-
-Should consider logistic regression, k nearest neighbors, random forest, 
-boosted tree
-
-Benefit is to recast data with a kernel such as a guasian to transform data
-into another dimension where they are separatable in another dimension
-
-Need to normalize
-
-b + w T * x = 0 
-
-maximize distance between groups - is reducing variance and increasing bias
-
-inducing bias is called - regularization
-
-margin is called support vectors with points in margin. Outside of margin is explicity
-classified. Each of those points is called a support vector. Need these vectors to define
-points between the classifications
-
-Measure epsilon from margin to points which is a tuning parameter which is summed
-into C which is called "budget"
-
-More vectors are decreasing variance or regularization
-
-Soft margin.
-
-Can model a circle of data in a donut by transforming the data:
-
-b0 + b1x1 + b2x2 +b3x1**2 + b3*x2**2 + b5x1x1
-
-into a higher space.
-
-Accomplishes this with a dot product - only values with positive alpha values are scored the
-rest of the points in the margin are set to zero so that they don't have an influence on the
-hyperplane.
-
-Different kernels determine measurement of similuarity
-The Gausian kernal or RBF radial basis formula
-=K(x, xi) = exp(-gamma * abs( x - x2)**2) 
-
-Budget for bias/variance tradeoff ? C for making errors
-
-curse of dimensionality  ??
 
 The support vector machine (SVM) is a generalization of a simple and 
 intuitive classifier called the maximal margin classifier.
@@ -2263,91 +2054,7 @@ REPO: Boosting
 
 ********************************
 
-Model process:
 
-make model f0(x)
-for m in M:
-    take the errors from f_m-1(x)
-    fit a model to those errors with a decision tree T_m
-    update total model:
-
-        f_m(x)  <-- f_m-1(x) + T_m(x)
-
-Boosting is not Bagging or random forest:
-
-Bagging - bootstrap many trees, each tree independently grown,
-in an effort to decrease variance through averaging
-
-Random Forest - Similiar idea, but take random subset of possible 
-freatures at each split to "decorrelate the trees"
-
-Gradient boosted regression trees:
-
-- instead of fitting to reweight trainig observations, fit residuals 
-to of previous tree
-
-increased complexity increases variance to fitting the next model
-bias is the residual sum of squares
-
-
-greedy model is GBRT with shrinkage factor 
-
-AdaBoost - Each tree is expert on attacking errors of predecessor
-iteratively re-weighs observations based on errors
-
-Discrete AdaBoost
-
-Use trees with a depth 4 - 6 
-
-Gradient boosting stump to 8
-Random forest is deepest posible
-
-GBRT is sklearn - tuning - 
-1) set n_estimators high as possible
-2) tune hyperparameters together via grid search
-
-from sklearn.grid_search import GridSearchCV
-
-pram_grid = {'learning_rate':
-'max_depth':
-'min_sample_leaf':
-max_features': }
-
-est = GradientBoostingRegressor(n_estimators=3000)
-gs_cv = GridSearchCV(est, param_grid).fit(X, y)
-gs_cv.best_params_
-
-
-***************
-
-Bagging/RF/Boosting
-Feature and Variable importance
-
-1) Feature 
-2) Partial Dependency plot - gives relationship with outcome - fix
-variable value and see outcome when it goes through the model
-look at the average predicted value
-look for the shape of the relationship with the data
-how much the dependent variable changes
-
-3) Stochastic gradient boosting
-4) correlated predictors have multicolinearity so can handle corelation but linear regression cannot
-Not harmful to these models
-random forests accounts for this because of the subset feature selection 
-gradient boosting has the all features so handles correlation differeently
-
-
-start with random forest and go to gradient boosting
-
-training data in a random forest :
-
-random selection with replacement
-bagging - boostrap aggregation - OOB - out of bag error rate
-use a subset of features (sqrt(n)) recommended
-
-1) Calculate OOB error rate - train tree model - and calculate OOB
-2) Shuffle values X1 or permute 
-3) Permute - and recalulate error rate
 
 ********************************
 
@@ -2355,12 +2062,8 @@ REPO: Assessment-4
       Profit-Curves
 
 ********************************
-REVIEW
 
-false negatives are type II errors
-false positives are type I errors
 
-two methods of predicting in python
 
-.predict_proba()
-.predict()
+
+
