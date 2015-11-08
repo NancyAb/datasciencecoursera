@@ -2289,7 +2289,13 @@ The Gausian kernal or RBF radial basis formula
 
 Budget for bias/variance tradeoff ? C for making errors
 
-curse of dimensionality  ??
+curse of dimensionality  ?? 
+
+as explained by : http://stats.stackexchange.com/questions/83686/the-curse-of-dimensionality-linear-svms
+
+Instead of the complexity of the model being defined in terms of the number of model parameters (which is a traditional view in statistics), the parameter C is used to define a nested set of classes of models of increasing complexity. The task is then to produce a model that explains the data from the model class of the least complexity. This is known as structural risk minimisation.
+
+In other words the linear SVM is robust to the curse of dimensionality provided the C parameter is tuned very carefully. As @Marc Claesen suggests (+1), if the model still doesn't give good performance, it is probably a non-linear problem and an RBF kernel is a good option. 
 
 The support vector machine (SVM) is a generalization of a simple and 
 intuitive classifier called the maximal margin classifier.
@@ -2409,6 +2415,7 @@ REPO: Assessment-4
       Profit-Curves
 
 ********************************
+
 REVIEW
 
 false negatives are type II errors
@@ -2418,3 +2425,88 @@ two methods of predicting in python
 
 .predict_proba()
 .predict()
+
+######################################################################
+
+WEEK 5 Natural Language Processing
+
+######################################################################
+
+REPO: web-scraping
+
+********************************
+
+
+********************************
+
+REPO: npl
+
+********************************
+
+
+********************************
+
+REPO: clustering
+
+********************************
+
+1) K Means 
+2) Hierarchical
+
+********************************
+
+REPO: case-study
+
+********************************
+
+
+********************************
+
+REPO: dimensionality-reduction
+
+********************************
+
+
+
+######################################################################
+
+WEEK 6 Unsupervised Learning
+
+######################################################################
+
+
+********************************
+
+REPO: Assessment-5
+      nmf
+
+********************************
+
+
+********************************
+
+REPO: image-featurization
+
+********************************
+
+
+********************************
+
+REPO: recommendation-systems
+
+********************************
+
+
+********************************
+
+REPO: recommender-case-study
+
+********************************
+
+
+********************************
+
+REPO: time-series
+
+********************************
+
