@@ -1,4 +1,10 @@
+FIND STRING IN FILE:
+
+grep -lr "plt"  
+grep -Hrn 'search term' path/to/files
+
 LOGISTICS:
+
 
 EDU password: schoolhouserock
 2.4: ourmembersrock!
@@ -2436,12 +2442,274 @@ REPO: web-scraping
 
 ********************************
 
+Natural Language Processing
+
+web_scraping_lec.pdf
+
+mongodb
+
+document-based database (json)  - 
+
+document-oriented databases are inherently a subclass of the 
+key-value store
+
+A document-oriented database or document store is a computer program
+designed for storing, retrieving, and managing document-oriented 
+information, also known as semi-structured data. 
+
+semi-scalable
+good for storing unstructured data
+schema-less
+no joins
+suboptimal for complicated queries
+no transactions
+
+lecture.md
+
+mongodb - no explicit concept of joins
+included with mongodb
+
+default port is 27017
+
+has databases
+databases have collections
+collections are unstructutured
+
+need to start server if running "mongo" command errors
+
+Commands:
+
+show dbs
+
+create database by:
+
+use new_databasename
+
+db.users.insert({ name: 'Jon', age: '45', friends: [ 'Henry', 'Ashley']})
+
+creates "users" collection by inserting values
+
+key value pairs like dictionaries
+
+camel case because java based
+
+command list:
+
+*****************
+use new_databasename
+use nancy
+use local
+db.users.insert({ name: 'Jon', age: '45', friends: [ 'Henry', 'Ashley']})
+db.getCollectionNames()
+db.users.find()
+
+// find by single field
+db.users.find({ name: 'Jon'})
+
+// find by presence of field
+db.users.find({ car: { $exists : true } })
+
+// find by value in array
+db.users.find({ friends: 'Henry' })
+
+// field selection (only return name)
+db.users.find({}, { name: true })
+
+// update
+
+db.users.update({name: "Jon"}, {friends: ["Phil"]})
+
+// replaces friends array
+db.users.update({name: "Jon"}, { $set: {friends: ["Phil"]}})
+
+// adds to friends array
+db.users.update({name: "Jon"}, { $push: {friends: "Susie"}})
+
+// upsert
+db.users.update({name: "Stevie"}, { $push: {friends: "Nicks"}}, true)
+
+// multiple updates
+db.users.update({}, { $set: { activated : false } }, false, true)
+
+*****************
+
+mongo has upsert update or insert
+MongoDB is not ACID compliant. 
+
+When to use sql and when to use mongodb
+
+sql
+
+structured - optimized for query speed
+reliability - guarentee uniqueness
+
+nosql
+
+less reliability - no index integrity
+unstructured data - can handle missing columns
+web scraping
+easy to import from jason
+
+
+from pymongo import MongoClient
+from bs4 import BeautifulSoup
+from requests import get
+from datetime import timedelta, date
+
+def test_pymongo():
+    client = MongoClient()
+ 
+    #Initiate Databse
+    db = client['test_database']
+
+    #initiate table
+    tab = db['test_tabel']
+
+    test_insert ={'author':'John Doe', 'title': 'HilBilly Jane'}
+
+    tab.insert_one(test_insert)
+
+    print 'Original Result'
+    test_result = tab.find({'author':'John Doe'}).next()
+
+
+    print test_result
+
+    print "Updated Result"
+    tab.update_one({'_id': test_result['_id'] }, {'$set': {'author': 'John Doe2'}})
+
+    print tab.find({'_id':test_result['_id']}).next()
+
+def read_ebay_shoes():
+
+
+get get data without any handshake with website
+post send along information to get data from website
+
+<script>inline java script </script>
+<script>tag=link to java file </script>
+
+<css>
+
+styles pages to look pretty
+css selector for h2 headings
+can pick any attribute in the html page
+ids are unique to the page
+classes can be applied to multiple elements
+class can be applied to multiple elements referenced by the css file
+
+cascading style sheets
+children get same styles
+
+ipython
+
+from requests import get
+
+html = get('http://www.ebay.com/sch/i')
+
+html.
+
+html.status_code 
+
+200 is good
+
+html.content
+
+from bs4 import BeautifulSoup
+bs = BeautifulSoup(html, 'html.parser')
+
+TypeError: object of type 'Response' has no len()
+
+bs = BeautifulSoup(html.content, 'html.parser')
+
+bs.select
+
+use chrome "inspect element"
+
+to see html code to look for class of interest
+
+creates a list:
+
+vip_tabs = bs.select(".vip")
+first_tag = vip_tabs[0]
+type(first_tag)
+type(bs)
+
+first_tag.get('a')
+
+first_tag.text
+
+parsing review:
+
+loop 
+
+for url in urls:
+    html = get(url)
+    parsed_html = BeautifulSoup(html.content, 'html.parser')
+    vip_tags = parsed_html.select('.vip')
+    for tag in vip_tags:
+        test = tag.txt
+        with open('my_tags.txt') as f:
+            f.write(text)
+
+file io is expensive 
+better to keep a list of text tags 
+and write all at once
+
+should minimize the number of times to open and close a 
+file
+
+best practice to only access a url once
 
 ********************************
+
 
 REPO: npl
 
 ********************************
+
+Bags of words
+
+Tokenize documents: list of unigrams
+Binary occurrences/ counts:
+Frequencies
+TF-IDF
+
+Better than frequencies: TF-IDF
+Term Frequency
+Inverse Document Frequency
+Non informative words such as "the" are scaled down
+
+skikits.learn
+
+from skikits.learn.features.text import WordNGramAnalyzer
+text = (u"J'ai mange\xe9 du kangourou ce midi,")
+
+WordNGramAnalyzer(min_n=1, max_n=2).analyze(text)
+from skikits.learn.features.text import CharNGramAnalyzer
+
+analyzer = CharNGramAnalyzer(min_n=3, max_n=6)
+char_ngrams = analyzer.analyze(text)
+
+print char_ngrams[:5] + char_ngrams[-5:]
+
+from skikits.learn.features.text.sparse import Vectorizer
+from skikits.learn.sparse.svm.sparse import LinearSVC
+
+vec = Vectorizer(analyzer=analyzer)
+features = vec.fit_transform(list_of_documents)
+clf = LinearSVC(C=100).fit(features, labels)
+
+clf2 = pickle.loads(pickls.dumps(clf))
+predicted_labels = clf.predict(features_of_new_docs)
+
+import nltk
+nltk.download() - gui window pops up
+
+pos_ids = reviews.fileids('pos')
+neg_ids = reviews.fileids('neg')
+len(pos_ids), len(neg_ids)
+reviews.words(pos_ids[0])
 
 
 ********************************
