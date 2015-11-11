@@ -2668,7 +2668,12 @@ REPO: npl
 
 ********************************
 
-Bags of words
+corpus: collection of docs => "data set"
+document: single entity in corpus, a string
+vocabulary: set of words appearing in corpus
+bags of words: vectorized document, word counts
+stop words: to ignore (articles, conjunctions) => "non-informative"
+token: single word => "tokenize" list
 
 Tokenize documents: list of unigrams
 Binary occurrences/ counts:
@@ -2711,6 +2716,172 @@ neg_ids = reviews.fileids('neg')
 len(pos_ids), len(neg_ids)
 reviews.words(pos_ids[0])
 
+
+EXAMPLE:
+
+3 documents in corpus:
+
+D1: "Baseball is clearly superior to football !!"
+D2: "Lake Superior is the largest Great Lake."
+D3: "Large avacados are a great source of vitamins."
+
+goal is to move from corpus to useful analysis
+
+how to begin?
+
+1) remove punctuation
+2) remove stop words
+3) lower case
+4) stemming /Lemmatization of the words (e.g. largest becomes largest)
+Porter/Snowball
+Wordnet Lemmatizer
+
+5) parse strings into words or tokenize
+
+now move to a dataset
+
+each word is a feature and each document is a row
+
+bag of words model:
+
+count vectorizer:
+
+doc baseball football superior lake great clear large ...
+1      1         1     1         0   0     1     0
+2      0         0     1         2   1     0     1
+3      0         0     0         0   1     0     1
+
+as documents increase the matrix becomes wider and
+sparser
+
+number of features (p) is larger than (n) documents
+no regression because more p > n so no finite solutions available
+
+this is called "term document matrix" 
+
+
+problems with term frequencies:
+
+1) row vectors of counts not normalized (e.g. use cosine similiarity or normalize by 
+document length)
+
+2) uncommon words across docs
+idf(term, Document) = log(Numberofdocs/countofnumberofdocumentswhere_term_exits)
+
+or the length of the set that the term appears
+or the sum of the times it appears in the Corpus
+
+what we want:
+
+TF-IDF - term frequency inverse document frequency
+
+Three options:
+
+1) raw counts (tf) term frequency
+2) log(1 + tf) # add 1 to avoid taking the log of zero
+3) 0.5 + (0.5 * tf /max(tf) )
+
+or maximum frequency normalization in general alpha terms:
+
+3) alpha + ( (1 - alpha) * tf /max(tf) )
+
+4) TfidfVectorizor = L2norms
+
+back to EXAMPLE:
+
+"baseball" is in {1}
+"superior" is in {1, 2}
+"great" is in {2, 3}
+
+great = log (3/2)
+
+N = number of documents or observations
+D = corpus which contains all documents d
+term frequency returns term information for the document
+
+tf(t,d) * idf(t, D)
+
+tf(t,d) can be normalized different ways.
+
+compare matrixes with one row (document) to another:
+
+use cosine similiarity
+a dot b / cos(angle)
+
+naive bayes for text classification:
+
+Bayes Rule:
+
+P(a|b) = P(b|a)*P(a) / P(b)
+
+Likelihood: P(b|a) is prob b given prior b
+P(a) is prior
+P(b) is prob b occuring across all possible a
+
+Simplifications:
+
+P(a|b) is prob of label given text
+
+1) P(a|b) is proportional to P(b|a) * P(a)
+2) bag of words - order of words does not matter
+3) indepence of features (words) - for naive bayes to work
+
+Naive Bayes:
+
+P(xi | cixj ) = P(xi | c)
+
+For New York Times - P Netanyahu given that Int'l and Isreal exists
+
+is the same as 
+
+P(Netanyahu| Int'l)  P netanyahu given Int'l exists
+
+find the "the cat in the hat" probability given the label C
+
+P("the cat in the hat" | C) * P(C)
+
+which is:
+
+P(C) * P("the"|C)**2 * P("cat"|C) * P("in"| C) * P("hat"|C)
+
+multinomial naive bayes classifier
+naivebayes.pdf
+
+calculate for every class and then choose the class with the highest
+probablity which becomes argmax P(C)
+
+c = argmax P(cj) * pi P(x|c)
+
+multipling together prob leads to very small numbers
+
+instead take log so values are still meaningful:
+
+= log(P(c)) + sum (x_w * log P(w | c))
+
+P(C) = sum ( y_i == C)/ N
+
+number of lables equal to c divided by all documents
+
+P(w_j | c) = count(w_j, c) / (sum ( count(w, c))
+
+count of word of interest / total words
+
+c is a subset of the data
+
+laplace smoothing:
+
+Likelihood the word is in each class:
+
+adds a 1 to the prob for positive probality space see slide 35 in naivebayes.pdf
+
+P(w_j | c) = ( 1 + count(w_j, c)) /( (sum ( count(w, c)) + |vocab| )
+
+easy to train so good place to start
+disadvantage of a strong assumptions
+better job with ensemble classifier
+easy to test in sklearn like all the other
+
+p can be greater than N so no worries of overfitting
 
 ********************************
 

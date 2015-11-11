@@ -25,3 +25,12 @@ instead of other databases.
 
 Sean web scraping great job going over the lecture notes and understanding
 of mongodb and python
+
+*********************
+
+yelp api mini quiz was cryptic on what was being asked 
+the instructions seemed misleading
+
+*********************
+
+nosetests on the naive bayes was helpful
