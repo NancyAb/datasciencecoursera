@@ -1,10 +1,20 @@
 FIND STRING IN FILE:
 
+
 grep -lr "plt"  
 grep -Hrn 'search term' path/to/files
 
+e.g.
+
+grep -Hrn 'load_iris' .
+
 LOGISTICS:
 
+outcomes:
+james@galvanize.com
+ben.robart@galvize.com
+email company wish list
+and request for company data
 
 EDU password: schoolhouserock
 2.4: ourmembersrock!
@@ -17,8 +27,11 @@ enumeration
 library itertools
 iteration
 key value pairs for dicionaries
-
+negative z values
 lambda with map and reduce
+review z test in python
+
+if __name__ == '__main__':
 
 ######################################################################
 
@@ -839,9 +852,9 @@ e.g. Welches test
 
 df = n-2 for 2 means
 
-for test proportion normal z or 0 - 1
+for test proportion normal z or for values between 0 - 1
 
-for compare two proportions normal z or 0 - 1
+for compare two proportions normal z or for values between 0 - 1
 
 one sample proportion 
 
@@ -1800,8 +1813,41 @@ y_hat = beta_0 + beta_1 * x_1
 3) Normally distribution of the errors 
 4) iid  - Indenpendent and identically distributed
 
-one unit in change with beta coefficient changes y by coefficient
-in regression holding everything else constant.
+There are four principal assumptions which justify the use of linear regression 
+models for purposes of inference or prediction:
+
+(i) linearity and additivity of the relationship between dependent and independent 
+variables:
+
+    (a) The expected value of dependent variable is a straight-line function of 
+    each independent variable, holding the others fixed.
+
+    (b) The slope of that line does not depend on the values of the other variables.
+
+    (c)  The effects of different independent variables on the expected value of the 
+    dependent variable are additive.
+
+(ii) statistical independence of the errors (in particular, no correlation between 
+consecutive errors in the case of time series data)
+
+(iii) homoscedasticity (constant variance) of the errors
+
+    (a) versus time (in the case of time series data)
+
+    (b) versus the predictions
+
+    (c) versus any independent variable
+
+(iv) normality of the error distribution.
+
+If any of these assumptions is violated (i.e., if there are nonlinear relationships 
+between dependent and independent variables or the errors exhibit correlation, 
+heteroscedasticity, or non-normality), then the forecasts, confidence intervals, 
+and scientific insights yielded by a regression model may be (at best) inefficient 
+or (at worst) seriously biased or misleading.  More details of these assumptions, 
+and the justification for them (or not) in particular cases, is given on the 
+introduction to regression page.  one unit in change with beta coefficient 
+changes y by coefficient in regression holding everything else constant.
 
 Add dummy variables for categorical variables in regression
 Add levels - 1 for number of dummy variables.
@@ -2716,6 +2762,13 @@ neg_ids = reviews.fileids('neg')
 len(pos_ids), len(neg_ids)
 reviews.words(pos_ids[0])
 
+The pickle module implements a fundamental, but powerful algorithm for serializing 
+and de-serializing a Python object structure. “Pickling” is the process whereby a
+Python object hierarchy is converted into a byte stream, and “unpickling” is 
+the inverse operation, whereby a byte stream is converted back into an object 
+hierarchy. Pickling (and unpickling) is alternatively known as “serialization”, 
+“marshalling,” [1] or “flattening”, however, to avoid confusion, the terms used 
+here are “pickling” and “unpickling”.
 
 EXAMPLE:
 
@@ -2888,9 +2941,86 @@ p can be greater than N so no worries of overfitting
 REPO: clustering
 
 ********************************
+lecture.pdf
 
 1) K Means 
 2) Hierarchical
+
+Unsupervised learning.
+
+Algorithm:
+
+1) Initialize - Randomly assign to a cluster
+
+2) Until convergence or assignments are no longer changing 
+or that your number of iterations runs out 
+or tolerance is met:
+
+    2.1) while for each k evaluate centroid
+    2.2) reasign obs to closest centroid using
+         euclidean distance
+
+Could end up with suboptimal points because of random 
+assignment. Fix with doing step 1 e.g. 10 times.
+
+Get best solutions. Choose set that minimize the sum of
+squares.
+
+sklearn.k-means++ : implements this as it is better than random 
+assignment. this helps converge faster. 
+
+n_jobs = -1 has jobs on all available processors
+
+How to choose best number of k:
+
+1) Evaluate within cluster sum of squares (WCSS)
+Graph points and pick lowest point with the minimum number of points.
+called elbow method. plot total sum of squares for all clusters
+versus number of clusters
+
+2) Silhouette Coefficinet (b-a) / max(a,b)
+negative values are bad.
+looking for highest value closest to one
+
+http://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_silhouette_ana
+
+Eucledean distances:
+
+1) must normalize data
+2) be aware of the curse of dimensionality
+
+parallelization:
+
+each iteration of random assignment is not dependent on the other. 
+makes each iteration easily parallelizable
+
+hierarchical clustering
+agglomerative
+
+looking for smallest value from pearson's correlation:
+
+1 - corr(xi, xj)
+
+*******************************
+
+unsupervised hierachial clustering
+
+how to link clusters with heirachy:
+
+1) complete linkage:
+
+next cluster the farthest from any two observations already
+existing in the cluster to join two heirarchies
+
+2) single - opposite of complete linkage is single :
+
+closest distance is single distance to join two heirarchies
+
+3) average 
+
+4) centroid distance is minimized
+
+most used are complete and average
 
 ********************************
 
