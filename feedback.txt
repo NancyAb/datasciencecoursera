@@ -1,36 +1,4 @@
-lab for random forest was well written
-neural network published notes
-really liked the boosting notes
 
-missed having neural net notes
+using consistent naming conventions such as "eucledian distance" as a square root
+or divided by a constant. 
 
-would like to have the reading match the lectures/assignments
-
-great reading materials and exercises in the daily released repos . I would like to
-study these before the class. Any chance these could be released the week before.
-
-*********************
-
-sean released repo . checks in with me that i understand what is going on.
-VERY useful for me to have mongo setup so i could follow along with Cary
-during the lecture
-
-cary gave an overview of natural language processing and used on-line lecture
-and gave a great overview of where this fits into the circulum
-
-why do web scraping and where to put it into a database. went over slides
-with visual explanations of web scraping and databases. and why mongodb
-instead of other databases.
-
-
-Sean web scraping great job going over the lecture notes and understanding
-of mongodb and python
-
-*********************
-
-yelp api mini quiz was cryptic on what was being asked 
-the instructions seemed misleading
-
-*********************
-
-nosetests on the naive bayes was helpful

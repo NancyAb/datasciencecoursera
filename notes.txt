@@ -1,8 +1,7 @@
 FIND STRING IN FILE:
 
-
 grep -lr "plt"  
-grep -Hrn 'search term' path/to/files
+grep -Hrn 'search term' .
 
 e.g.
 
@@ -28,7 +27,7 @@ library itertools
 iteration
 key value pairs for dicionaries
 negative z values
-lambda with map and reduce
+lambda with map and reduce and filter
 review z test in python
 
 if __name__ == '__main__':
@@ -78,6 +77,31 @@ append
 
 if not list_name then it is empty
 
+lambda python function
+
+1) filter() calls our lambda function for each element of the list, and returns 
+a new list that contains only those elements for which the function returned 
+"True". In this case, we get a list of all elements that are multiples of 3.
+The expression x % 3 == 0 computes the remainder of x divided by 3 and compares 
+the result with 0 (which is true if x is evenly divisible by 3).
+
+filter(lambda x: x % 3 == 0, foo)
+
+2) map() is used to convert our list. The given function is called for every 
+element in the original list, and a new list is created which contains the 
+return values from our lambda function. In this case, it computes 2 * x + 10 
+for every element.
+
+map(lambda x: x * 2 + 10, foo)
+
+3) reduce() is somewhat special. The "worker function" for this one must 
+accept two arguments (we've called them x and y here), not just one. The 
+function is called with the first two elements from the list, then with the 
+result of that call and the third element, and so on, until all of the list 
+elements have been handled. 
+
+reduce(lambda x, y: x + y, foo)
+
 ENUMERATION:
 
 range generate all values while xrange does one at a time to save memory
@@ -89,6 +113,9 @@ which is faster than a for loop
 
 enumerates zip with izip which combines lists item by item
 count is a sequence
+
+zip computes all the list at once, 
+izip computes the elements only when requested.
 
 from itertools import izip, count
 
@@ -276,8 +303,23 @@ google = np.loadtxt('data/lunch_hour.txt')
 
 # pandas data frame load from csv
 
+from sklearn.cross_validation import KFold
+from sklearn.cross_validation import train_test_split
+
 df = pd.read_csv('data/salary_data.csv')
 df.describe()
+
+df['ISBN'].nunique()
+
+df.rename(columns={'is.employed':'is_employed'}, inplace=True)
+
+df = df.drop('African American', axis = 1)
+df['gender_dummy'] = (df['Gender'] == ' Male').astype(int) # male is 1, female 0
+
+train_feature, test_feature, train_target, test_target = \
+        train_test_split(features, target, test_size=0.3)
+
+
 
 Pandas in built on numpy which is fast
 
@@ -345,6 +387,10 @@ Two ways to think of frequentist probability:
 1) (# of events that meet your criteria) / (total # of possible events)
 
 2) How often does this happen in the long run ?
+
+One percent of motorcycles sold by a vehicle distributor have defective 
+tail lights. How many motor-cycles must be inspected for there to be 
+greater than a 50% probability of ﬁnding one with a defective tail light? 
 
 ***********************
 
@@ -1840,6 +1886,7 @@ consecutive errors in the case of time series data)
 
 (iv) normality of the error distribution.
 
+
 If any of these assumptions is violated (i.e., if there are nonlinear relationships 
 between dependent and independent variables or the errors exhibit correlation, 
 heteroscedasticity, or non-normality), then the forecasts, confidence intervals, 
@@ -1856,6 +1903,16 @@ Diagnostics - compare linear regression models - MSE , AIC,
 adjusted R**2, BIC
 
 Check residual plot for residuals vs. independent variables
+
+i) Linear relationship - plot and see if it falls in a line with y_hat
+ii) multivariant normality - QQ plot of the residuals (difference between
+y and y_hat)
+iii) Homoesistcity check - plot studentized residuals (y) with y_hat
+held constant
+iv) no auto-correlation - independence of the variables - time series
+often violates this or the location
+v) mulit-colinerarity - vifs should be 1/ (1-R**2) greater than 10 is
+bad greater than 5 is still bad
 
 k folds to compare models with predictive power
 
@@ -1891,8 +1948,7 @@ The 3 laws of recursion algorithm:
 2. must change its state and move toward the base case.
 3. must call itself, recursively.
 
-k-nearest neighbors (kNN) - high bias approach
-k nearest neighbors (kNN) - high bias approach
+k-nearest neighbors (kNN) - high bias approach - supervised
 
 Parameters 1- how many neighbors 2- neighbors weight
 
@@ -2863,6 +2919,9 @@ a dot b / cos(angle)
 
 naive bayes for text classification:
 
+naive because it assumes class conditional independence.
+
+
 Bayes Rule:
 
 P(a|b) = P(b|a)*P(a) / P(b)
@@ -3035,6 +3094,142 @@ REPO: dimensionality-reduction
 
 ********************************
 
+principal component analysis (PCA)
+
+unsupervised
+
+need to have standardized / normalize independent variables
+
+lambda (eigenvalue) bounded by 0 and 1
+tells me about the amount of variability in my original feature space 
+that can be explained by that principal component (p.c.)
+
+similiar to R**2 value 
+
+Av = Lv
+
+v - is the eigenvector is not bounded can be positive and 
+negative
+
+Provides us eigenvalues and corresponding eigenvectors.
+
+solve for lambda as det(A-Ilambda ) = 0
+then puth lambda (where lambda != 0) into 
+
+Av = lambda v
+
+solve for v
+
+eigenvalues and eigenvectors only work with square matix
+
+lambda_i to match number of columns
+each contributes to the original matrix
+
+feature selection:
+
+1) lasso drops out features with interpretablity of the
+model which keeps the original variables. If multicolinearity
+lasso will drop one feature.
+
+2) PCA keeps all variables but with ininterpretable 
+results in terms of variables. just use new features
+from new vecture. NOT interpretable.
+
+3) ridge and lasso combined technique addresses multicolinearity
+
+svd generalizes this for non-square matrix
+
+good for recommendation engines
+
+regression can be done with final eigenvalues because
+multicolinearity is guarenteed with loss of interprepability
+
+PCA is also used for reducing feature space at a loss of
+interpretability. Then can regress on response .
+
+This can be used to reduce survey length by comparing
+questions to each other because this is an unsupervised
+technique. The survey questions can be reduced by looking
+at the loading values in the eigenvectors
+
+e.g. 5 questions
+
+lambda1 [2 8 6 0.001 0.001] choose one of the first 3 questions
+lambda2 [0.001 -0.003 0.004 -0.3 -0.8 ] - choose one of the last 2 questions
+
+questions are moving together with the eigenvalue
+will reduce the number of questions
+
+covariance matrix: X'X
+
+works with a non-square matrix to generate eigenvalues and eigenvectors
+
+eigvalues are orthoginal to each other
+
+**************************
+
+singular value decomposition (SVD) unsupervised technique
+
+the method machine learning finds an optimal solution using gradient 
+descent cost function
+
+matrix decomposition - represents our orignal data by representing
+original with matixes with lower rank
+
+goal is to generalize finding eigenvalues and eigenvectors to non-
+square matrix.
+
+orthanormal the transpose equals the inverse
+
+latent feature - what your data tells you without being in your column
+space. You can think of the weights matrix as representing how much of each 
+latent feature corresponds to each user, and the features matrix as how much 
+of each item/rating contributes to the latent features. Topics.
+
+in our example of movies the latent features are:
+
+sci fi
+romance
+
+number of singular values equal to the rank of x
+
+if data are normalized then the diagnal matrix has the equivalent of 
+the sqrt(eigenvalues) which are between + 0 and 1 
+
+Matrix norms are useful to measure the size of a matrix. Some of them can 
+be interpreted in terms of input-output properties of the corresponding 
+linear map; for example, the Frobenius norm measure the average response 
+to unit vectors, while the largest singular (LSV) norm measures the 
+peak gain. These two norms can be easily read from the SVD.
+
+Frobenius norm
+
+The Frobenius norm can be defined as
+|A|_F = sqrt(Tr(A transpose A ) )
+
+Hence the squared Frobenius norm is nothing else than the sum of the squares 
+of the singular values.
+
+Energy is the same as variance of a dimension and we can compute it simply 
+by squaring the singular values.
+
+REVIEW:
+
+modeling binary response:
+
+k-nearest neighbors
+ada boost
+logistical
+random forrest
+gradient boost
+decision tree
+svm
+neural nets
+
+bad to use:
+
+linear regression
+
 
 
 ######################################################################
@@ -3043,20 +3238,57 @@ WEEK 6 Unsupervised Learning
 
 ######################################################################
 
-
-********************************
-
 REPO: Assessment-5
       nmf
 
 ********************************
 
+unsupervised is not trying to predict anything.
 
 ********************************
 
 REPO: image-featurization
 
 ********************************
+
+python neural networks
+
+supervised regression
+predicting test score.
+
+artificial neural networks
+
+need to scale data:
+
+X = X/np.amax(X, axis=0)
+y = y/100 # max test score is 100
+
+deep believe hidden layers
+
+activation functions: sigmoid
+
+class Neural_Network(object):
+    def __init__(self):
+        # Define HyperParameters
+        self.inputLayerSize = 2
+        self.outputLayerSize = 1
+        self.hiddenLayerSize = 3
+    
+    def forward(self, X):
+        #Propagate inputs through network
+        
+def sigmoid(z):
+    #Apply sigmoid activation function
+    return 1/(1+np.exp(-z))
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+%matplotlib inline
+testInput = np.arange(-6, 6, 0.01)
+
+plt.plot(testInput, sigmoid(testInput), linewidth = 2)
+plt.grid(1);
 
 
 ********************************
